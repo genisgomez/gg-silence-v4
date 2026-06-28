@@ -1,945 +1,1094 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GG.SILENCE — Streetwear</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>GG SILENCE — Drop 001 · Barcelona · October 2026</title>
+    <meta name="description" content="GG SILENCE. One garment. No logos. No seasons. No noise. Drop 001 — 50 units, Barcelona, October 2026. Built in silence.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#050505">
+    <meta name="author" content="GG SILENCE">
+    <link rel="canonical" href="https://gg-silence-v4.netlify.app/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gg-silence-v4.netlify.app/">
+    <meta property="og:site_name" content="GG SILENCE">
+    <meta property="og:title" content="GG SILENCE — Drop 001 · Barcelona 2026">
+    <meta property="og:description" content="One garment. No logos. No seasons. No noise. 50 units. No restock. Barcelona, October 2026.">
+    <meta property="og:image" content="https://gg-silence-v4.netlify.app/modelo-1.jpeg">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GG SILENCE — Drop 001">
+    <meta name="twitter:description" content="One garment. No logos. No seasons. No noise. 50 units. Barcelona, October 2026.">
+    <meta name="twitter:image" content="https://gg-silence-v4.netlify.app/modelo-1.jpeg">
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "GG SILENCE — Insignia T-Shirt Drop 001",
+      "brand": { "@type": "Brand", "name": "GG SILENCE" },
+      "description": "300gsm boxy fit t-shirt. One garment. No logos. No seasons. 50 units, no restock.",
+      "offers": {
+        "@type": "Offer",
+        "price": "485.00",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/PreOrder",
+        "availabilityStarts": "2026-10-11",
+        "seller": { "@type": "Organization", "name": "GG SILENCE" }
+      },
+      "image": "https://gg-silence-v4.netlify.app/modelo-1.jpeg",
+      "url": "https://gg-silence-v4.netlify.app/"
+    }
+    </script>
+
+    <!-- Fonts preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
     <style>
-        :root {
-            --bg: #000000;
-            --fg: #f0f0f0;
-            --muted: #555;
-            --accent: #c8ff00;
-            --card: #0a0a0a;
-            --border: #1a1a1a;
+        *{margin:0;padding:0;box-sizing:border-box}
+        ::selection{background:rgba(100,160,255,0.2);color:#EAEAEA}
+        body{background:#050505;color:#EAEAEA;font-family:'Inter',sans-serif;cursor:none;overflow-x:hidden}
+
+        /* PRELOADER */
+        #preloader{position:fixed;inset:0;z-index:10000;background:#050505;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+        .pl-sym{font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:0.6em;color:#EAEAEA;opacity:0}
+        .pl-gg{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,15vw,140px);letter-spacing:0.15em;color:#EAEAEA;opacity:0;filter:blur(6px)}
+
+        .vignette{position:fixed;inset:0;z-index:51;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,0.65) 100%);opacity:0}
+
+        /* CANVAS */
+        #dustCanvas{position:fixed;inset:0;z-index:53;pointer-events:none;opacity:0}
+
+        /* CURSOR */
+        a,button,input{cursor:none}
+        .cur-dot{width:5px;height:5px;background:#EAEAEA;border-radius:50%;position:fixed;pointer-events:none;z-index:99999;mix-blend-mode:difference}
+        .cur-ring{width:36px;height:36px;border:1px solid rgba(234,234,234,0.35);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;mix-blend-mode:difference;transition:width .3s,height .3s,border-color .3s}
+        .cur-ring.hov{width:60px;height:60px;border-color:rgba(234,234,234,0.7)}
+        @media(max-width:768px){body,a,button,input{cursor:auto}.cur-dot,.cur-ring{display:none}}
+
+        /* HERO */
+        .h-overlay{background:linear-gradient(180deg,rgba(5,5,5,0.5) 0%,rgba(5,5,5,0.12) 30%,rgba(5,5,5,0.1) 50%,rgba(5,5,5,0.5) 75%,rgba(5,5,5,0.98) 100%)}
+        @keyframes kb{0%{transform:scale(1.08) translate(0,0)}50%{transform:scale(1.14) translate(-0.8%,-0.8%)}100%{transform:scale(1.1) translate(0.4%,-0.4%)}}
+        .ken-burns{animation:kb 25s ease-in-out infinite alternate}
+
+        /* SCROLL IND */
+        @keyframes sp{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(10px);opacity:1}}
+        .scroll-ind{animation:sp 2.5s ease-in-out infinite}
+
+        /* GOLD */
+        .gold{color:#9a7f4a}
+        .symbol-gold{color:#9a7f4a;letter-spacing:0.2em}
+
+        /* ACCENT LINE */
+        .acc-line{width:0;height:1px;background:rgba(154,127,74,0.4);transform-origin:center}
+
+        /* PRODUCT HOVER */
+        .pc .po{opacity:0;transition:opacity .6s}.pc:hover .po{opacity:1}
+        .pc .pi{transition:transform .8s cubic-bezier(.25,.46,.45,.94),filter .6s}.pc:hover .pi{transform:scale(1.06);filter:brightness(0.25)}
+
+        /* TERMINAL */
+        @keyframes bl{0%,50%{opacity:1}51%,100%{opacity:0}}.tc{animation:bl 1s infinite}
+
+        /* CART */
+        .cart-sb{transform:translateX(100%);transition:transform .5s cubic-bezier(.77,0,.175,1)}.cart-sb.open{transform:translateX(0)}
+
+        /* GRAIN */
+        body::after{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.35}
+
+        /* JOURNAL */
+        .js::-webkit-scrollbar{display:none}.js{-ms-overflow-style:none;scrollbar-width:none}
+
+        /* IMAGES */
+        img{opacity:0;transition:opacity 1s}img.ld{opacity:1}
+
+        /* DIVIDERS */
+        .divl{transform:scaleX(0);transform-origin:center}
+
+        /* LOGO MARK */
+        .lm{display:inline-block;vertical-align:-0.08em;height:0.9em;width:1.55em}
+
+        /* MANIFESTO MODAL */
+        .mf{opacity:0;transform:translateY(22px);transition:opacity 1.1s ease,transform 1s ease}
+        .mf.vis{opacity:1;transform:none}
+        .mf-div{width:44px;height:1px;background:rgba(154,127,74,0.16);margin:56px 0}
+        #manifestoModal::-webkit-scrollbar{display:none}
+        #manifestoModal{-ms-overflow-style:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+
+        /* JOURNEY */
+        .city-panel{margin:0;padding:0;display:block}
+        .city-wrap{position:relative;overflow:hidden;height:100vh;min-height:600px}
+        .city-photo{width:100%;height:100%;object-fit:cover;will-change:transform}
+        .city-body{opacity:0}
+        #jNav{transition:opacity .9s ease}
+        .ji{opacity:0}
+
+        /* CITY PHOTO POSITIONS — mobile */
+        .city-panel[data-idx="0"] .city-photo{object-position:50% 75%}
+        .city-panel[data-idx="1"] .city-photo{object-position:42% 72%}
+        .city-panel[data-idx="2"] .city-photo{object-position:50% 76%}
+        .city-panel[data-idx="3"] .city-photo{object-position:62% 76%}
+        .city-panel[data-idx="4"] .city-photo{object-position:center 70%}
+
+        /* CITY PHOTO POSITIONS — desktop fine-tuned */
+        @media(min-width:1024px){
+          .city-panel[data-idx="0"] .city-photo{object-position:50% 60%}   /* London  — Big Ben centrado, subido */
+          .city-panel[data-idx="1"] .city-photo{object-position:42% 78%}   /* Paris   — Eiffel ligeramente izquierda */
+          .city-panel[data-idx="2"] .city-photo{object-position:50% 80%}   /* Berlin  — Torre TV centrada */
+          .city-panel[data-idx="3"] .city-photo{object-position:65% 82%}   /* Roma    — Cúpula San Pietro, derecha */
+          .city-panel[data-idx="4"] .city-photo{object-position:center 70%} /* Barcelona — sin tocar */
         }
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{background:var(--bg);color:var(--fg);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;}
-        ::-webkit-scrollbar{width:6px;}
-        ::-webkit-scrollbar-track{background:#000;}
-        ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
-        ::-webkit-scrollbar-thumb:hover{background:var(--accent);}
 
-        /* ========== PUERTA ========== */
-        #gate{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;}
-        #gate-canvas{position:absolute;inset:0;z-index:0;}
-        #gate::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,0.7) 100%);pointer-events:none;z-index:1;}
-        #gate-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:2.5rem;opacity:0;animation:fadeInGate 1.5s ease .3s forwards;}
-        @keyframes fadeInGate{to{opacity:1;}}
-        .gate-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.5rem,9vw,6.5rem);letter-spacing:.12em;user-select:none;}
-        .gate-brand .dot{color:var(--accent);text-shadow:0 0 40px rgba(200,255,0,.5),0 0 80px rgba(200,255,0,.2);animation:dotPulse 3s ease-in-out infinite;}
-        @keyframes dotPulse{0%,100%{text-shadow:0 0 40px rgba(200,255,0,.5),0 0 80px rgba(200,255,0,.2);}50%{text-shadow:0 0 60px rgba(200,255,0,.8),0 0 120px rgba(200,255,0,.4);}}
-        .gate-subtitle{font-size:.65rem;letter-spacing:.5em;text-transform:uppercase;color:var(--muted);margin-top:-1.8rem;}
-        .gate-input-group{display:flex;flex-direction:column;align-items:center;gap:.8rem;}
-        .gate-label{font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted);}
-        .gate-input{background:transparent;border:1px solid var(--border);color:var(--fg);font-family:'Space Grotesk',monospace;font-size:1.4rem;letter-spacing:.6em;padding:.8rem 1.4rem;text-align:center;width:290px;outline:none;transition:border-color .3s,box-shadow .3s;text-transform:uppercase;}
-        .gate-input::placeholder{color:#1a1a1a;letter-spacing:.4em;font-size:.75rem;}
-        .gate-input:focus{border-color:var(--accent);box-shadow:0 0 30px rgba(200,255,0,.08),inset 0 0 20px rgba(200,255,0,.03);}
-        .gate-input.wrong{border-color:#ff0033;animation:inputShake .5s ease;box-shadow:0 0 20px rgba(255,0,51,.15);}
-        @keyframes inputShake{0%,100%{transform:translateX(0);}15%{transform:translateX(-10px);}30%{transform:translateX(10px);}45%{transform:translateX(-7px);}60%{transform:translateX(7px);}75%{transform:translateX(-3px);}90%{transform:translateX(3px);}}
-        .gate-error{font-size:.55rem;color:#ff0033;letter-spacing:.25em;height:1em;opacity:0;transition:opacity .3s;}
-        .gate-error.show{opacity:1;}
-        .gate-hint{font-size:.5rem;color:#2a2a2a;letter-spacing:.15em;margin-top:1.5rem;opacity:0;transition:opacity 1.5s;}
-        .gate-hint.show{opacity:1;}
+        /* HERO VIDEO */
+        .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;opacity:0.6}
+        .hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.45);z-index:1}
 
-        /* ========== VORTEX ========== */
-        #vortex-overlay{position:fixed;inset:0;z-index:2000;pointer-events:none;opacity:0;}
-        #vortex-canvas{width:100%;height:100%;}
-        #gate.glitching #gate-content{animation:glitchContent .06s infinite;}
-        @keyframes glitchContent{0%{transform:translate(0,0) skewX(0);filter:hue-rotate(0) brightness(1);}20%{transform:translate(-4px,2px) skewX(-3deg);filter:hue-rotate(90deg) brightness(1.5);}40%{transform:translate(3px,-3px) skewX(2deg);filter:hue-rotate(200deg) brightness(.7);}60%{transform:translate(-2px,-1px) skewX(-1deg);filter:hue-rotate(300deg) brightness(1.8);}80%{transform:translate(4px,1px) skewX(3deg);filter:hue-rotate(50deg) brightness(.5);}100%{transform:translate(0,0) skewX(0);filter:hue-rotate(360deg) brightness(1);}}
-        #gate.swallowing #gate-content{animation:swallowAnim 1.4s ease-in forwards;}
-        @keyframes swallowAnim{0%{transform:scale(1) rotate(0);opacity:1;filter:blur(0) brightness(1);}30%{transform:scale(.8) rotate(1deg);opacity:.8;filter:blur(1px) brightness(1.5);}100%{transform:scale(0) rotate(8deg);opacity:0;filter:blur(20px) brightness(4);}}
-        #gate.shaking{animation:screenShake .08s infinite;}
-        @keyframes screenShake{0%{transform:translate(0,0);}25%{transform:translate(-3px,2px);}50%{transform:translate(2px,-3px);}75%{transform:translate(-1px,1px);}100%{transform:translate(0,0);}}
-        #scanlines{position:fixed;inset:0;z-index:2500;pointer-events:none;opacity:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.4) 2px,rgba(0,0,0,.4) 4px);}
-        #scanlines.active{opacity:1;}
-        #flash{position:fixed;inset:0;z-index:3000;background:#fff;opacity:0;pointer-events:none;}
-        #flash.bang{animation:flashBang .8s ease-out forwards;}
-        @keyframes flashBang{0%{opacity:1;}15%{opacity:.3;}30%{opacity:.7;}50%{opacity:.2;}100%{opacity:0;}}
-
-        /* ========== WEB ========== */
-        #website{position:fixed;inset:0;z-index:500;opacity:0;visibility:hidden;overflow-y:auto;overflow-x:hidden;background:var(--bg);}
-        #website.visible{opacity:1;visibility:visible;animation:siteReveal 1s ease-out;}
-        @keyframes siteReveal{0%{filter:brightness(5) blur(10px);}30%{filter:brightness(2) blur(3px);}60%{filter:brightness(1.2) blur(.5px);}100%{filter:brightness(1) blur(0);}}
-
-        /* Nav */
-        .s-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:rgba(0,0,0,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:transform .3s;}
-        .s-nav.hidden{transform:translateY(-100%);}
-        .nav-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;letter-spacing:.1em;cursor:pointer;}
-        .nav-brand .dot{color:var(--accent);}
-        .nav-mid{display:flex;gap:2rem;list-style:none;}
-        .nav-mid a{color:var(--muted);text-decoration:none;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;transition:color .3s;position:relative;}
-        .nav-mid a:hover,.nav-mid a.active{color:var(--fg);}
-        .nav-mid a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s;}
-        .nav-mid a:hover::after,.nav-mid a.active::after{width:100%;}
-        .nav-right{display:flex;align-items:center;gap:1.2rem;}
-        .nav-icon{color:var(--muted);font-size:.95rem;cursor:pointer;transition:color .3s;position:relative;}
-        .nav-icon:hover{color:var(--fg);}
-        .cart-count{position:absolute;top:-6px;right:-8px;background:var(--accent);color:#000;font-size:.5rem;font-weight:700;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:all .3s;}
-        .cart-count.show{opacity:1;transform:scale(1);}
-
-        /* Hero */
-        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:6rem 2rem 4rem;}
-        .hero-bg{position:absolute;inset:0;z-index:0;}
-        .hero-bg img{width:100%;height:100%;object-fit:cover;filter:brightness(.3) contrast(1.2) saturate(.6);}
-        .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.5) 0%,rgba(0,0,0,.2) 40%,rgba(0,0,0,.8) 100%);}
-        .hero-content{position:relative;z-index:1;text-align:center;max-width:700px;}
-        .hero-tag{font-size:.55rem;letter-spacing:.6em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;display:inline-block;border:1px solid rgba(200,255,0,.3);padding:.4rem 1.2rem;}
-        .hero-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.5rem,8vw,6rem);line-height:1; margin-bottom:1.2rem;}
-        .hero-title span{display:block;font-size:.35em;font-weight:400;letter-spacing:.3em;color:var(--muted);margin-top:.5rem;font-family:'Space Grotesk',sans-serif;}
-        .hero-btns{display:flex;gap:1rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;}
-        .btn-primary{display:inline-flex;align-items:center;gap:.7rem;padding:.85rem 2rem;border:1px solid var(--accent);color:var(--accent);text-decoration:none;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;transition:all .3s;background:transparent;cursor:pointer;font-family:'Space Grotesk',sans-serif;}
-        .btn-primary:hover{background:var(--accent);color:#000;box-shadow:0 0 40px rgba(200,255,0,.2);}
-        .btn-ghost{display:inline-flex;align-items:center;gap:.7rem;padding:.85rem 2rem;border:1px solid var(--border);color:var(--muted);text-decoration:none;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;transition:all .3s;background:transparent;cursor:pointer;font-family:'Space Grotesk',sans-serif;}
-        .btn-ghost:hover{border-color:var(--fg);color:var(--fg);}
-
-        /* Marquee */
-        .marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:.8rem 0;position:relative;}
-        .marquee-track{display:flex;animation:marqueeScroll 20s linear infinite;width:max-content;}
-        .marquee-item{white-space:nowrap;padding:0 2rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.1em;color:var(--muted);}
-        .marquee-item .sep{color:var(--accent);margin:0 1rem;}
-        @keyframes marqueeScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-
-        /* Categorias */
-        .cats{padding:5rem 2rem;max-width:1200px;margin:0 auto;}
-        .cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
-        .cat-card{position:relative;height:420px;overflow:hidden;cursor:pointer;border:1px solid var(--border);}
-        .cat-card img{width:100%;height:100%;object-fit:cover;filter:grayscale(.7) brightness(.6);transition:all .6s;}
-        .cat-card:hover img{filter:grayscale(0) brightness(.7);transform:scale(1.08);}
-        .cat-info{position:absolute;bottom:0;left:0;right:0;padding:1.5rem;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,transparent 100%);}
-        .cat-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1.2rem;margin-bottom:.3rem;}
-        .cat-count{font-size:.6rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
-
-        /* Seccion titulo */
-        .sec-head{padding:4rem 2rem 2rem;max-width:1200px;margin:0 auto;display:flex;align-items:end;justify-content:space-between;}
-        .sec-label{font-size:.55rem;letter-spacing:.5em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem;}
-        .sec-title{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.5rem,3vw,2.2rem);}
-        .sec-link{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;border-bottom:1px solid transparent;padding-bottom:2px;}
-        .sec-link:hover{color:var(--accent);border-color:var(--accent);}
-
-        /* Productos */
-        .products{padding:2rem;max-width:1200px;margin:0 auto;}
-        .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;}
-        .prod-card{cursor:pointer;opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease;}
-        .prod-card.revealed{opacity:1;transform:translateY(0);}
-        .prod-img{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--card);border:1px solid var(--border);margin-bottom:.8rem;transition:border-color .3s;}
-        .prod-card:hover .prod-img{border-color:rgba(200,255,0,.2);}
-        .prod-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.5) brightness(.8);transition:all .5s;}
-        .prod-card:hover .prod-img img{filter:grayscale(0) brightness(.9);transform:scale(1.05);}
-        .prod-actions{position:absolute;bottom:0;left:0;right:0;padding:1rem;display:flex;gap:.5rem;transform:translateY(100%);transition:transform .3s;}
-        .prod-card:hover .prod-actions{transform:translateY(0);}
-        .prod-actions button{flex:1;padding:.6rem;background:rgba(0,0,0,.85);border:1px solid var(--border);color:var(--fg);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all .2s;backdrop-filter:blur(10px);}
-        .prod-actions button:hover{background:var(--accent);color:#000;border-color:var(--accent);}
-        .prod-actions button.wish{flex:0;padding:.6rem .8rem;}
-        .prod-badge{position:absolute;top:.8rem;left:.8rem;background:var(--accent);color:#000;font-size:.5rem;font-weight:700;letter-spacing:.1em;padding:.25rem .6rem;text-transform:uppercase;}
-        .prod-name{font-size:.8rem;font-weight:500;margin-bottom:.2rem;}
-        .prod-price{font-size:.7rem;color:var(--muted);}
-        .prod-price .old{text-decoration:line-through;margin-right:.4rem;color:#333;}
-
-        /* Banner parallax */
-        .banner{height:50vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;margin:3rem 0;}
-        .banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.5);}
-        .banner-content{position:relative;z-index:1;text-align:center;}
-        .banner-content h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,5vw,4rem);margin-bottom:1rem;}
-        .banner-content p{color:var(--muted);font-size:.85rem;max-width:400px;margin:0 auto 1.5rem;line-height:1.7;}
-
-        /* Lookbook */
-        .lookbook{padding:2rem;max-width:1200px;margin:0 auto;}
-        .look-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
-        .look-card{position:relative;overflow:hidden;cursor:pointer;border:1px solid var(--border);opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s,border-color .3s;}
-        .look-card.revealed{opacity:1;transform:translateY(0);}
-        .look-card:hover{border-color:rgba(200,255,0,.3);}
-        .look-card img{width:100%;height:500px;object-fit:cover;filter:grayscale(.6) brightness(.7);transition:all .6s;}
-        .look-card:hover img{filter:grayscale(.2) brightness(.8);transform:scale(1.03);}
-        .look-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 60%);display:flex;align-items:end;padding:2rem;}
-        .look-overlay h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;}
-        .look-overlay span{display:block;font-size:.6rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:.3rem;}
-
-        /* Footer */
-        .s-footer{border-top:1px solid var(--border);padding:4rem 2rem 2rem;max-width:1200px;margin:0 auto;}
-        .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
-        .foot-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;margin-bottom:1rem;}
-        .foot-brand .dot{color:var(--accent);}
-        .foot-desc{font-size:.75rem;color:var(--muted);line-height:1.8;max-width:280px;}
-        .foot-col h4{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg);margin-bottom:1rem;}
-        .foot-col a{display:block;color:var(--muted);text-decoration:none;font-size:.75rem;line-height:2.2;transition:color .3s;}
-        .foot-col a:hover{color:var(--accent);}
-        .foot-bottom{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;}
-        .foot-copy{font-size:.55rem;color:#2a2a2a;letter-spacing:.15em;}
-        .foot-socials{display:flex;gap:1rem;}
-        .foot-socials a{color:#2a2a2a;font-size:.85rem;transition:color .3s;text-decoration:none;}
-        .foot-socials a:hover{color:var(--accent);}
-
-        /* Cart panel */
-        .cart-panel{position:fixed;top:0;right:0;bottom:0;width:380px;max-width:90vw;background:var(--card);border-left:1px solid var(--border);z-index:200;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;}
-        .cart-panel.open{transform:translateX(0);}
-        .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:199;opacity:0;pointer-events:none;transition:opacity .3s;}
-        .cart-overlay.open{opacity:1;pointer-events:auto;}
-        .cart-head{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);}
-        .cart-head h3{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.05em;}
-        .cart-close{background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;transition:color .3s;padding:4px;}
-        .cart-close:hover{color:var(--fg);}
-        .cart-body{flex:1;overflow-y:auto;padding:1rem 1.5rem;}
-        .cart-empty{text-align:center;padding:3rem 1rem;color:var(--muted);font-size:.75rem;letter-spacing:.1em;}
-        .cart-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);animation:cartItemIn .3s ease;}
-        @keyframes cartItemIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
-        .cart-item img{width:70px;height:90px;object-fit:cover;filter:grayscale(.4);}
-        .cart-item-info{flex:1;}
-        .cart-item-name{font-size:.75rem;font-weight:500;margin-bottom:.2rem;}
-        .cart-item-size{font-size:.6rem;color:var(--muted);margin-bottom:.4rem;}
-        .cart-item-price{font-size:.75rem;color:var(--accent);}
-        .cart-item-remove{background:none;border:none;color:#333;font-size:.7rem;cursor:pointer;transition:color .3s;padding:0;margin-top:.3rem;}
-        .cart-item-remove:hover{color:#ff0033;}
-        .cart-foot{padding:1.2rem 1.5rem;border-top:1px solid var(--border);}
-        .cart-total{display:flex;justify-content:space-between;margin-bottom:1rem;}
-        .cart-total span{font-size:.75rem;letter-spacing:.1em;}
-        .cart-total strong{color:var(--accent);font-size:.9rem;}
-        .btn-checkout{width:100%;padding:.9rem;background:var(--accent);color:#000;border:none;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:box-shadow .3s;}
-        .btn-checkout:hover{box-shadow:0 0 30px rgba(200,255,0,.3);}
-
-        /* Toast */
-        .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--card);border:1px solid var(--accent);color:var(--fg);padding:.8rem 1.5rem;font-size:.7rem;letter-spacing:.1em;z-index:300;transition:transform .4s cubic-bezier(.4,0,.2,1);pointer-events:none;}
-        .toast.show{transform:translateX(-50%) translateY(0);}
-
-        /* Responsive */
-        @media(max-width:1024px){.cats-grid{grid-template-columns:repeat(2,1fr);}.prod-grid{grid-template-columns:repeat(3,1fr);}.cat-card{height:320px;}}
-        @media(max-width:768px){
-            .nav-mid{display:none;}
-            .cats-grid{grid-template-columns:1fr 1fr;}.cat-card{height:260px;}
-            .prod-grid{grid-template-columns:repeat(2,1fr);}
-            .look-grid{grid-template-columns:1fr;}
-            .look-card img{height:350px;}
-            .foot-grid{grid-template-columns:1fr 1fr;gap:2rem;}
-            .hero-title{font-size:2.5rem;}
-            .gate-input{width:240px;font-size:1.1rem;letter-spacing:.4em;}
+        /* CONCRETE TEXTURE */
+        .concrete-bg{
+            position:relative;
+            background-color:#1a1a1a;
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='concrete'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23concrete)' opacity='0.15'/%3E%3C/svg%3E");
+            background-size:400px 400px;
         }
-        @media(max-width:480px){
-            .prod-grid{grid-template-columns:1fr 1fr;gap:.8rem;}
-            .cats-grid{grid-template-columns:1fr;}.cat-card{height:300px;}
-            .foot-grid{grid-template-columns:1fr;}
-            .foot-bottom{flex-direction:column;gap:.8rem;text-align:center;}
+        .concrete-bg-subtle{
+            position:relative;
+            background-color:#141414;
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='concrete'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23concrete)' opacity='0.06'/%3E%3C/svg%3E");
+            background-size:400px 400px;
         }
-        @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+
+        /* ACCESSIBILITY */
+        .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+        :focus-visible{outline:1px solid rgba(154,127,74,0.6);outline-offset:3px}
+        button:focus-visible,input:focus-visible{outline:1px solid rgba(154,127,74,0.6);outline-offset:2px}
+
+        /* RESPECT REDUCED MOTION */
+        @media(prefers-reduced-motion:reduce){
+            *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
+            .ken-burns{animation:none}
+            .mf{transition:none}
+        }
     </style>
 </head>
 <body>
 
-<!-- PUERTA -->
-<div id="gate" role="dialog" aria-label="Portal de acceso GG.SILENCE">
-    <canvas id="gate-canvas" aria-hidden="true"></canvas>
-    <div id="gate-content">
-        <div class="gate-brand">GG<span class="dot">.</span>SILENCE</div>
-        <div class="gate-subtitle">Acceso restringido</div>
-        <div class="gate-input-group">
-            <span class="gate-label">Introduce el codigo</span>
-            <input type="text" class="gate-input" id="codeInput" placeholder="------" maxlength="10" autocomplete="off" spellcheck="false" aria-label="Codigo de acceso">
-            <span class="gate-error" id="gateError" role="alert">CODIGO INCORRECTO</span>
-        </div>
-        <div class="gate-hint" id="gateHint">La respuesta esta en el nombre</div>
-    </div>
-</div>
-<div id="scanlines" aria-hidden="true"></div>
-<div id="vortex-overlay" aria-hidden="true"><canvas id="vortex-canvas"></canvas></div>
-<div id="flash" aria-hidden="true"></div>
+<!-- LOGO MARK SVG SYMBOL -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="lm" viewBox="0 0 30 18">
+    <circle cx="3" cy="9" r="2.6"/>
+    <rect x="9.5" y="2.5" width="3.8" height="13" rx="0.5"/>
+    <rect x="17.5" y="2.5" width="3.8" height="13" rx="0.5"/>
+  </symbol>
+</svg>
 
-<!-- WEB -->
-<div id="website">
-    <nav class="s-nav" id="mainNav" role="navigation">
-        <div class="nav-brand" onclick="window.scrollTo({top:0,behavior:'smooth'})">GG<span class="dot">.</span>SILENCE</div>
-        <ul class="nav-mid">
-            <li><a href="#categorias" class="active">Categorias</a></li>
-            <li><a href="#destacados">Novedades</a></li>
-            <li><a href="#lookbook">Lookbook</a></li>
-        </ul>
-        <div class="nav-right">
-            <div class="nav-icon" id="searchBtn" aria-label="Buscar"><i class="fas fa-search"></i></div>
-            <div class="nav-icon" id="cartBtn" aria-label="Carrito">
-                <i class="fas fa-bag-shopping"></i>
-                <span class="cart-count" id="cartCount">0</span>
-            </div>
-        </div>
-    </nav>
+<!-- CURSOR -->
+<div class="cur-dot" id="cDot"></div>
+<div class="cur-ring" id="cRing" style="opacity:0"></div>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-bg">
-            <img src="https://picsum.photos/seed/ggs-streetwear-dark/1920/1080.jpg" alt="">
-        </div>
-        <div class="hero-content">
-            <div class="hero-tag">Coleccion SS25</div>
-            <h1 class="hero-title">SILENCE<br>IS LOUD<span>Ropa que habla sin abrir la boca</span></h1>
-            <div class="hero-btns">
-                <a href="#destacados" class="btn-primary">Comprar ahora <i class="fas fa-arrow-right"></i></a>
-                <a href="#lookbook" class="btn-ghost">Ver lookbook</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Marquee -->
-    <div class="marquee-wrap" aria-hidden="true">
-        <div class="marquee-track">
-            <div class="marquee-item">GG.SILENCE <span class="sep">//</span> STREETWEAR <span class="sep">//</span> SIN RUIDO <span class="sep">//</span> SILENCE IS LOUD <span class="sep">//</span> COLECCION SS25 <span class="sep">//</span> ENVIO GRATIS +50€ <span class="sep">//</span> GG.SILENCE <span class="sep">//</span> STREETWEAR <span class="sep">//</span> SIN RUIDO <span class="sep">//</span> SILENCE IS LOUD <span class="sep">//</span> COLECCION SS25 <span class="sep">//</span> ENVIO GRATIS +50€ <span class="sep">//</span></div>
-            <div class="marquee-item">GG.SILENCE <span class="sep">//</span> STREETWEAR <span class="sep">//</span> SIN RUIDO <span class="sep">//</span> SILENCE IS LOUD <span class="sep">//</span> COLECCION SS25 <span class="sep">//</span> ENVIO GRATIS +50€ <span class="sep">//</span> GG.SILENCE <span class="sep">//</span> STREETWEAR <span class="sep">//</span> SIN RUIDO <span class="sep">//</span> SILENCE IS LOUD <span class="sep">//</span> COLECCION SS25 <span class="sep">//</span> ENVIO GRATIS +50€ <span class="sep">//</span></div>
-        </div>
-    </div>
-
-    <!-- Categorias -->
-    <section class="cats" id="categorias">
-        <div class="cats-grid">
-            <div class="cat-card" onclick="scrollToSection('destacados')">
-                <img src="https://picsum.photos/seed/ggs-hoodie-cat/600/800.jpg" alt="Sudaderas">
-                <div class="cat-info"><div class="cat-name">Sudaderas</div><div class="cat-count">12 productos</div></div>
-            </div>
-            <div class="cat-card" onclick="scrollToSection('destacados')">
-                <img src="https://picsum.photos/seed/ggs-tshirt-cat/600/800.jpg" alt="Camisetas">
-                <div class="cat-info"><div class="cat-name">Camisetas</div><div class="cat-count">18 productos</div></div>
-            </div>
-            <div class="cat-card" onclick="scrollToSection('destacados')">
-                <img src="https://picsum.photos/seed/ggs-pants-cat/600/800.jpg" alt="Pantalones">
-                <div class="cat-info"><div class="cat-name">Pantalones</div><div class="cat-count">8 productos</div></div>
-            </div>
-            <div class="cat-card" onclick="scrollToSection('destacados')">
-                <img src="https://picsum.photos/seed/ggs-acc-cat/600/800.jpg" alt="Accesorios">
-                <div class="cat-info"><div class="cat-name">Accesorios</div><div class="cat-count">15 productos</div></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Destacados -->
-    <div class="sec-head" id="destacados">
-        <div><div class="sec-label">Novedades</div><h2 class="sec-title">Lo mas fresco</h2></div>
-        <a href="#" class="sec-link">Ver todo <i class="fas fa-arrow-right" style="margin-left:.4rem;font-size:.5rem;"></i></a>
-    </div>
-    <section class="products" id="prodSection">
-        <div class="prod-grid" id="prodGrid"></div>
-    </section>
-
-    <!-- Banner -->
-    <div class="banner">
-        <img src="https://picsum.photos/seed/ggs-banner-mid/1920/800.jpg" alt="">
-        <div class="banner-content">
-            <h2>SILENCE IS LOUD</h2>
-            <p>La nueva coleccion ya esta aqui. Piezas limitadas, diseno sin compromiso.</p>
-            <a href="#destacados" class="btn-primary">Explorar coleccion <i class="fas fa-arrow-right"></i></a>
-        </div>
-    </div>
-
-    <!-- Mas productos -->
-    <div class="sec-head">
-        <div><div class="sec-label">Esenciales</div><h2 class="sec-title">Basico con actitud</h2></div>
-        <a href="#" class="sec-link">Ver todo <i class="fas fa-arrow-right" style="margin-left:.4rem;font-size:.5rem;"></i></a>
-    </div>
-    <section class="products">
-        <div class="prod-grid" id="prodGrid2"></div>
-    </section>
-
-    <!-- Lookbook -->
-    <div class="sec-head" id="lookbook">
-        <div><div class="sec-label">Lookbook</div><h2 class="sec-title">Como se lleva</h2></div>
-    </div>
-    <section class="lookbook">
-        <div class="look-grid">
-            <div class="look-card"><img src="https://picsum.photos/seed/ggs-look1/800/600.jpg" alt="Look 1"><div class="look-overlay"><div><h3>Drop 01</h3><span>Primavera 2025</span></div></div></div>
-            <div class="look-card"><img src="https://picsum.photos/seed/ggs-look2/800/600.jpg" alt="Look 2"><div class="look-overlay"><div><h3>After Dark</h3><span>Edicion nocturna</span></div></div></div>
-            <div class="look-card"><img src="https://picsum.photos/seed/ggs-look3/800/600.jpg" alt="Look 3"><div class="look-overlay"><div><h3>Monocromo</h3><span>Blanco y negro solo</span></div></div></div>
-            <div class="look-card"><img src="https://picsum.photos/seed/ggs-look4/800/600.jpg" alt="Look 4"><div class="look-overlay"><div><h3>Layering</h3><span>Capas sobre capas</span></div></div></div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="s-footer">
-        <div class="foot-grid">
-            <div>
-                <div class="foot-brand">GG<span class="dot">.</span>SILENCE</div>
-                <p class="foot-desc">Streetwear nacido del silencio. Ropa que no necesita gritar para ser escuchada. Disenado en Barcelona, producido sin ruido.</p>
-            </div>
-            <div class="foot-col">
-                <h4>Tienda</h4>
-                <a href="#">Sudaderas</a>
-                <a href="#">Camisetas</a>
-                <a href="#">Pantalones</a>
-                <a href="#">Accesorios</a>
-                <a href="#">Sale</a>
-            </div>
-            <div class="foot-col">
-                <h4>Info</h4>
-                <a href="#">Sobre nosotros</a>
-                <a href="#">Envios y devoluciones</a>
-                <a href="#">Guia de tallas</a>
-                <a href="#">Contacto</a>
-            </div>
-            <div class="foot-col">
-                <h4>Legal</h4>
-                <a href="#">Privacidad</a>
-                <a href="#">Terminos</a>
-                <a href="#">Cookies</a>
-            </div>
-        </div>
-        <div class="foot-bottom">
-            <span class="foot-copy">&copy; 2025 GG.SILENCE. Todos los derechos reservados.</span>
-            <div class="foot-socials">
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
-            </div>
-        </div>
-    </footer>
+<!-- PRELOADER -->
+<div id="preloader">
+    <div class="pl-sym" id="plSym" translate="no"><svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></div>
+    <div class="pl-gg" id="plGG" translate="no">SILENCE</div>
 </div>
 
-<!-- Cart -->
-<div class="cart-overlay" id="cartOverlay"></div>
-<div class="cart-panel" id="cartPanel">
-    <div class="cart-head"><h3>TU BOLSA (<span id="cartItemsCount">0</span>)</h3><button class="cart-close" id="cartClose" aria-label="Cerrar carrito"><i class="fas fa-xmark"></i></button></div>
-    <div class="cart-body" id="cartBody"><div class="cart-empty">Tu bolsa esta vacia</div></div>
-    <div class="cart-foot">
-        <div class="cart-total"><span>Total</span><strong id="cartTotal">0,00 €</strong></div>
-        <button class="btn-checkout">Finalizar compra</button>
+
+<!-- VIGNETTE + DUST -->
+<div class="vignette" id="vig"></div>
+<canvas id="dustCanvas"></canvas>
+
+<!-- CART -->
+<div class="cart-sb fixed top-0 right-0 h-full w-full md:w-[420px] bg-dark-gray z-[1000] flex flex-col" id="cartSB">
+    <div class="flex items-center justify-between p-6 border-b border-white/5">
+        <h3 class="font-oswald text-sm tracking-[0.3em] uppercase">Cart</h3>
+        <button onclick="toggleCart()" class="text-off-white/50 hover:text-off-white transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="flex-1 flex items-center justify-center"><p class="text-off-white/30 text-sm tracking-wide">Your cart is empty</p></div>
+    <div class="p-6 border-t border-white/5">
+        <div class="flex justify-between mb-4"><span class="text-off-white/50 text-sm">Subtotal</span><span class="text-sm">€0.00</span></div>
+        <button class="w-full bg-off-white text-black font-oswald text-xs tracking-[0.3em] uppercase py-4 hover:bg-white transition-colors">Checkout</button>
     </div>
 </div>
+<div class="fixed inset-0 bg-black/60 z-[999] hidden" id="cartOv" onclick="toggleCart()"></div>
 
-<!-- Toast -->
-<div class="toast" id="toast"></div>
+<!-- NAV -->
+<nav class="fixed top-0 left-0 w-full z-[100] transition-all duration-500" id="nav" style="opacity:0">
+    <div class="flex items-center justify-between px-6 md:px-12 py-5">
+        <a href="#hero" class="hv flex items-center gap-3">
+            <span class="font-oswald text-xs tracking-[0.4em] text-gold"><svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></span>
+            <span class="font-bebas text-xl tracking-[0.2em] text-off-white/80">GG SILENCE</span>
+        </a>
+        <div class="hidden md:flex items-center gap-10">
+            <a href="#manifesto" class="font-oswald text-[11px] tracking-[0.25em] uppercase text-off-white/40 hover:text-off-white transition-colors hv">Manifesto</a>
+            <a href="#drop" class="font-oswald text-[11px] tracking-[0.25em] uppercase text-off-white/40 hover:text-off-white transition-colors hv">Drop 001</a>
+            <a href="#products" class="font-oswald text-[11px] tracking-[0.25em] uppercase text-off-white/40 hover:text-off-white transition-colors hv">Shop</a>
+            <a href="#journal" class="font-oswald text-[11px] tracking-[0.25em] uppercase text-off-white/40 hover:text-off-white transition-colors hv">Journal</a>
+            <a href="#lab" class="font-oswald text-[11px] tracking-[0.25em] uppercase text-off-white/40 hover:text-off-white transition-colors hv">Lab</a>
+        </div>
+        <div class="flex items-center gap-6">
+            <button class="hv text-off-white/40 hover:text-off-white transition-colors" onclick="toggleCart()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
+            <button class="md:hidden hv text-off-white/40 hover:text-off-white transition-colors" onclick="toggleMM()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        </div>
+    </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="fixed inset-0 bg-black z-[200] flex flex-col items-center justify-center gap-8 transition-all duration-500 pointer-events-none opacity-0" id="mm">
+    <button class="absolute top-5 right-6 text-off-white/50 hover:text-off-white" onclick="toggleMM()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <a href="#manifesto" onclick="toggleMM()" class="font-bebas text-4xl tracking-[0.15em] text-off-white/70 hover:text-off-white">Manifesto</a>
+    <a href="#drop" onclick="toggleMM()" class="font-bebas text-4xl tracking-[0.15em] text-off-white/70 hover:text-off-white">Drop 001</a>
+    <a href="#products" onclick="toggleMM()" class="font-bebas text-4xl tracking-[0.15em] text-off-white/70 hover:text-off-white">Shop</a>
+    <a href="#journal" onclick="toggleMM()" class="font-bebas text-4xl tracking-[0.15em] text-off-white/70 hover:text-off-white">Journal</a>
+    <a href="#lab" onclick="toggleMM()" class="font-bebas text-4xl tracking-[0.15em] text-off-white/70 hover:text-off-white">Lab</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <video autoplay muted loop playsinline preload="auto" class="hero-video">
+        <source src="bucle.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="h-overlay absolute inset-0"></div>
+    <div class="relative z-10 text-center px-6 w-full max-w-6xl">
+
+        <!-- Símbolo -->
+        <p id="hSym" class="font-oswald text-xs tracking-[0.6em] symbol-gold mb-8 md:mb-10" style="opacity:0"><svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></p>
+
+        <!-- SILENCE -->
+        <h1 id="hGG" class="font-bebas leading-[0.85] tracking-[0.06em] mb-6 md:mb-8"
+            style="opacity:0;font-size:clamp(80px,16vw,220px)" translate="no">SILENCE</h1>
+
+        <!-- Línea dorada -->
+        <div class="flex justify-center mb-10 md:mb-14">
+            <div class="acc-line" id="hAcc"></div>
+        </div>
+
+        <!-- Filosofía -->
+        <div id="hPhilo" class="space-y-3 mb-12 md:mb-16" style="opacity:0;transform:translateY(16px)">
+            <p class="font-inter text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-off-white/30 font-light">The most powerful silence is the one that precedes something inevitable.</p>
+            <p class="font-inter text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-off-white/15 font-light">We don't launch collections.</p>
+        </div>
+
+
+    </div>
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 scroll-ind" id="sInd" style="opacity:0;position:absolute;z-index:10">
+        <span class="font-inter text-[8px] tracking-[0.4em] uppercase text-off-white/15">Scroll</span>
+        <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="rgba(234,234,234,0.2)" stroke-width="0.8"><rect x="1" y="1" width="10" height="18" rx="5"/><line x1="6" y1="5" x2="6" y2="9"/></svg>
+    </div>
+</section>
+
+<!-- ===== MANIFESTO ===== -->
+<section id="manifesto" class="concrete-bg-subtle relative py-32 md:py-48 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+        <div class="max-w-3xl">
+            <span class="ma font-inter text-[10px] tracking-[0.4em] uppercase text-off-white/15 block mb-8">01 / Manifesto</span>
+            <h2 class="ma font-bebas text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.88] tracking-[0.02em] mb-14">WE ARE NOT<br>A BRAND.<br>WE ARE A<br>STANCE.</h2>
+        </div>
+        <div class="flex flex-col md:flex-row gap-16 md:gap-32 items-start">
+            <div class="md:w-1/2 space-y-5">
+                <p class="ma font-inter text-sm md:text-[15px] text-off-white/35 leading-[1.8] font-light">One single piece. No logos. No seasons.</p>
+                <p class="ma font-inter text-sm md:text-[15px] text-off-white/35 leading-[1.8] font-light">With the full weight of the material that holds it.</p>
+                <p class="ma font-inter text-sm md:text-[15px] text-off-white/35 leading-[1.8] font-light">True luxury is not announced — it's perceived.</p>
+            </div>
+            <div class="md:w-1/2 flex flex-col justify-between">
+                <p class="ma font-inter text-sm md:text-[15px] text-off-white/20 leading-[1.8] font-light">We build for those who understand that the most powerful things never ask for attention. They exist. That is enough.</p>
+                <div class="mt-10">
+                    <button onclick="openManifesto()" class="ma hv font-oswald text-[11px] tracking-[0.3em] uppercase text-gold/60 border-b border-gold/20 pb-2 hover:text-gold hover:border-gold/50 transition-all duration-500">Read Manifesto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-32 md:mt-48"><div class="divl w-full h-px bg-gradient-to-r from-transparent via-off-white/[0.08] to-transparent"></div></div>
+</section>
+
+<!-- ===== NIGHT JOURNEY ===== -->
+<section id="journey" class="relative">
+
+    <!-- SIDEBAR TIMELINE (desktop only) -->
+    <div id="jNav" class="hidden md:block" style="position:fixed;left:36px;top:50%;transform:translateY(-50%);z-index:90;opacity:0;pointer-events:none">
+        <div id="jInner" style="position:relative"></div>
+    </div>
+
+    <!-- SECTION INTRO -->
+    <div class="pt-32 md:pt-48 pb-24 md:pb-36 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto">
+            <span class="ji font-inter text-[10px] tracking-[0.4em] uppercase text-off-white/15 block mb-8">Journey · One Night</span>
+            <h2 class="ji font-bebas text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.88] tracking-[0.02em]">While the world<br>slept.</h2>
+            <div class="ji flex items-center gap-5 mt-10">
+                <div class="h-px bg-gold/25 w-10"></div>
+                <span class="font-inter text-[10px] tracking-[0.4em] uppercase text-off-white/20">23:00 — 06:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- LONDON -->
+    <div class="city-panel" data-idx="0">
+        <div class="city-wrap">
+            <img src="ciudad-london.png" alt="London — Big Ben at night" class="city-photo" loading="lazy">
+            <div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(5,5,5,0.1) 0%,rgba(5,5,5,0.0) 35%,rgba(5,5,5,0.72) 100%)"></div>
+        </div>
+        <div class="city-body px-6 md:px-12 lg:px-20 max-w-7xl mx-auto py-20 md:py-28">
+            <span class="font-oswald text-[10px] tracking-[0.6em] text-gold/55 block mb-6">23 : 00</span>
+            <h3 class="font-bebas leading-[0.85] tracking-[0.02em] mb-10" style="font-size:clamp(56px,9vw,120px)" translate="no">LONDON</h3>
+            <p class="font-inter text-sm md:text-[15px] text-off-white/45 leading-[1.9] font-light max-w-lg mb-6">"The clock keeps moving.<br>So do we."</p>
+            <p class="font-inter text-[10px] tracking-[0.25em] leading-[2] max-w-md" style="color:rgba(234,234,234,0.16)">The world sleeps.<br>Discipline doesn't.</p>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 md:px-12"><div class="h-px bg-gradient-to-r from-transparent via-white/[0.05] to-transparent"></div></div>
+    </div>
+
+    <!-- PARIS -->
+    <div class="city-panel" data-idx="1">
+        <div class="city-wrap">
+            <img src="ciudad-paris.png" alt="Paris — Eiffel Tower at night" class="city-photo" loading="lazy">
+            <div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(5,5,5,0.1) 0%,rgba(5,5,5,0.0) 35%,rgba(5,5,5,0.72) 100%)"></div>
+        </div>
+        <div class="city-body px-6 md:px-12 lg:px-20 max-w-7xl mx-auto py-20 md:py-28">
+            <span class="font-oswald text-[10px] tracking-[0.6em] text-gold/55 block mb-6">00 : 30</span>
+            <h3 class="font-bebas leading-[0.85] tracking-[0.02em] mb-10" style="font-size:clamp(56px,9vw,120px)" translate="no">PARIS</h3>
+            <p class="font-inter text-sm md:text-[15px] text-off-white/45 leading-[1.9] font-light max-w-lg mb-6">"Silence is where ideas take shape."</p>
+            <p class="font-inter text-[10px] tracking-[0.25em] leading-[2] max-w-md" style="color:rgba(234,234,234,0.16)">Not every masterpiece begins with applause.</p>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 md:px-12"><div class="h-px bg-gradient-to-r from-transparent via-white/[0.05] to-transparent"></div></div>
+    </div>
+
+    <!-- BERLIN -->
+    <div class="city-panel" data-idx="2">
+        <div class="city-wrap">
+            <img src="ciudad-berlin.png" alt="Berlin — TV Tower at night" class="city-photo" loading="lazy">
+            <div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(5,5,5,0.1) 0%,rgba(5,5,5,0.0) 35%,rgba(5,5,5,0.72) 100%)"></div>
+        </div>
+        <div class="city-body px-6 md:px-12 lg:px-20 max-w-7xl mx-auto py-20 md:py-28">
+            <span class="font-oswald text-[10px] tracking-[0.6em] text-gold/55 block mb-6">02 : 00</span>
+            <h3 class="font-bebas leading-[0.85] tracking-[0.02em] mb-10" style="font-size:clamp(56px,9vw,120px)" translate="no">BERLIN</h3>
+            <p class="font-inter text-sm md:text-[15px] text-off-white/45 leading-[1.9] font-light max-w-lg mb-6">"Discipline leaves no noise."</p>
+            <p class="font-inter text-[10px] tracking-[0.25em] leading-[2] max-w-md" style="color:rgba(234,234,234,0.16)">Consistency is invisible<br>until it becomes impossible to ignore.</p>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 md:px-12"><div class="h-px bg-gradient-to-r from-transparent via-white/[0.05] to-transparent"></div></div>
+    </div>
+
+    <!-- ROME -->
+    <div class="city-panel" data-idx="3">
+        <div class="city-wrap">
+            <img src="ciudad-roma.png" alt="Rome — Vatican and Tiber by night" class="city-photo" loading="lazy">
+            <div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(5,5,5,0.1) 0%,rgba(5,5,5,0.0) 35%,rgba(5,5,5,0.72) 100%)"></div>
+        </div>
+        <div class="city-body px-6 md:px-12 lg:px-20 max-w-7xl mx-auto py-20 md:py-28">
+            <span class="font-oswald text-[10px] tracking-[0.6em] text-gold/55 block mb-6">03 : 45</span>
+            <h3 class="font-bebas leading-[0.85] tracking-[0.02em] mb-10" style="font-size:clamp(56px,9vw,120px)" translate="no">ROME</h3>
+            <p class="font-inter text-sm md:text-[15px] text-off-white/45 leading-[1.9] font-light max-w-lg mb-6">"What is built with patience<br>outlives trends."</p>
+            <p class="font-inter text-[10px] tracking-[0.25em] leading-[2] max-w-md" style="color:rgba(234,234,234,0.16)">Stone remembers what noise forgets.</p>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 md:px-12"><div class="h-px bg-gradient-to-r from-transparent via-white/[0.05] to-transparent"></div></div>
+    </div>
+
+    <!-- BARCELONA -->
+    <div class="city-panel" data-idx="4">
+        <div class="city-wrap">
+            <img src="ciudad-barcelona.png" alt="Barcelona — Sagrada Família at night" class="city-photo" loading="lazy">
+            <div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(5,5,5,0.1) 0%,rgba(5,5,5,0.0) 35%,rgba(5,5,5,0.72) 100%)"></div>
+        </div>
+        <div class="city-body px-6 md:px-12 lg:px-20 max-w-7xl mx-auto py-20 md:py-28">
+            <span class="font-oswald text-[10px] tracking-[0.6em] text-gold/55 block mb-6">05 : 10</span>
+            <h3 class="font-bebas leading-[0.85] tracking-[0.02em] mb-10" style="font-size:clamp(56px,9vw,120px)" translate="no">BARCELONA</h3>
+            <p class="font-inter text-sm md:text-[15px] text-off-white/45 leading-[1.9] font-light max-w-lg mb-6">"Great things are never<br>finished overnight."</p>
+            <p class="font-inter text-[10px] tracking-[0.25em] leading-[2] max-w-md" style="color:rgba(234,234,234,0.16)">The strongest foundations<br>are built in silence.</p>
+        </div>
+    </div>
+
+    <!-- DROP REVEAL -->
+    <div id="drReveal" class="relative flex items-center justify-center" style="min-height:100vh;background:#050505">
+        <div class="text-center px-6">
+            <div id="drClock" style="opacity:0;margin-bottom:40px">
+                <svg width="38" height="38" viewBox="0 0 38 38" fill="none" class="mx-auto mb-8">
+                    <circle cx="19" cy="19" r="18" stroke="rgba(154,127,74,0.16)" stroke-width="0.7"/>
+                    <line x1="19" y1="19" x2="19" y2="30" stroke="rgba(154,127,74,0.5)" stroke-width="0.8" stroke-linecap="round"/>
+                    <line x1="19" y1="19" x2="19" y2="5" stroke="rgba(154,127,74,0.35)" stroke-width="0.6" stroke-linecap="round"/>
+                    <circle cx="19" cy="19" r="1.4" fill="rgba(154,127,74,0.65)"/>
+                </svg>
+                <p style="font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:0.65em;color:rgba(154,127,74,0.45);text-transform:uppercase">06 : 00</p>
+            </div>
+            <h2 id="drTitle" class="font-bebas tracking-[0.05em] leading-[0.85]" style="opacity:0;font-size:clamp(58px,12vw,155px)">DROP 001</h2>
+            <h3 id="drWord" class="font-bebas tracking-[0.1em]" style="opacity:0;font-size:clamp(36px,7vw,90px);color:rgba(234,234,234,0.1);margin-top:6px">SILENCE</h3>
+            <p id="drLine" class="font-inter uppercase tracking-[0.45em]" style="opacity:0;font-size:9px;color:rgba(234,234,234,0.18);margin-top:44px">Built while the world slept.</p>
+            <div id="drBtn" style="opacity:0;margin-top:60px">
+                <button onclick="document.getElementById('drop').scrollIntoView({behavior:'smooth'})" class="hv font-oswald text-[11px] tracking-[0.35em] uppercase text-gold/50 border-b border-gold/15 pb-2 hover:text-gold hover:border-gold/50 transition-all duration-700">View the Drop &nbsp;↓</button>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- ===== DROP ===== -->
+<section id="drop" class="concrete-bg relative py-32 md:py-48 px-6 md:px-12" style="isolation:isolate">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row gap-16 md:gap-20">
+            <div class="md:w-1/2">
+                <div class="da aspect-[3/4] mb-4" style="position:relative;overflow:hidden;background:transparent">
+                    <img src="drop-001-main.png" alt="GG SILENCE — Insignia T-Shirt Drop 001" class="w-full h-full object-cover transition-opacity duration-500" style="opacity:0.92;object-position:center 15%;mix-blend-mode:multiply;filter:grayscale(0.85);" id="dMI">
+                </div>
+            </div>
+            <div class="md:w-1/2 flex flex-col justify-center">
+                <span class="da font-inter text-[10px] tracking-[0.4em] uppercase text-off-white/15 block mb-6">02 / Current Drop</span>
+                <h2 class="da font-bebas text-4xl md:text-5xl tracking-[0.02em] mb-2">DROP 001<span class="text-gold/60">/050</span></h2>
+                <h3 class="da font-bebas text-6xl md:text-8xl tracking-[0.05em] mb-10">SILENCE</h3>
+                <div class="da space-y-0 mb-10">
+                    <div class="flex justify-between items-center py-3.5 border-b border-white/[0.04]"><span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">Product</span><span class="font-inter text-sm text-off-white/60">Insignia T-Shirt <svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></span></div>
+                    <div class="flex justify-between items-center py-3.5 border-b border-white/[0.04]"><span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">Weight</span><span class="font-inter text-sm text-off-white/60">300 GSM Heavyweight</span></div>
+                    <div class="flex justify-between items-center py-3.5 border-b border-white/[0.04]"><span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">Cut</span><span class="font-inter text-sm text-off-white/60">Boxy · Oversize</span></div>
+                    <div class="flex justify-between items-center py-3.5 border-b border-white/[0.04]"><span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">Color</span><span class="font-inter text-sm text-off-white/60">Absolute black</span></div>
+                    <div class="flex justify-between items-start py-3.5 border-b border-white/[0.04]"><span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">Units</span><div class="text-right"><span class="font-inter text-sm text-off-white/60 block">50/50 · No restock</span><span class="font-inter text-[10px] tracking-[0.2em] text-off-white/30 block mt-1">50 M · 50 L · 50 XL</span></div></div>
+                    <div class="flex justify-between items-center py-3.5 border-b border-white/[0.04]"><span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">Price</span><span class="font-oswald text-lg tracking-[0.1em] text-gold">€485.00</span></div>
+                </div>
+                <div class="da mb-8">
+                    <span class="font-inter text-[10px] tracking-[0.3em] uppercase text-off-white/25 block mb-4">Size</span>
+                    <div class="flex gap-2">
+                        <button class="sb hv font-oswald text-xs tracking-[0.2em] w-12 h-12 border border-white/[0.08] text-off-white/30 hover:border-off-white/40 hover:text-off-white transition-all" onclick="selS(this)">M</button>
+                        <button class="sb hv font-oswald text-xs tracking-[0.2em] w-12 h-12 border border-off-white/40 text-off-white transition-all" onclick="selS(this)">L</button>
+                        <button class="sb hv font-oswald text-xs tracking-[0.2em] w-12 h-12 border border-white/[0.08] text-off-white/30 hover:border-off-white/40 hover:text-off-white transition-all" onclick="selS(this)">XL</button>
+                    </div>
+                </div>
+                <button class="da hv w-full bg-gold text-black font-oswald text-[11px] tracking-[0.4em] uppercase py-5 hover:bg-gold-bright transition-colors" onclick="openDropDate()">Access the Drop</button>
+                <p class="da font-inter text-[9px] text-off-white/15 tracking-[0.3em] mt-3 text-center">Drop 001 · October 2026 · 50 units · Barcelona</p>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-32 md:mt-48 px-6 md:px-12"><div class="divl w-full h-px bg-gradient-to-r from-transparent via-off-white/[0.08] to-transparent"></div></div>
+</section>
+
+<!-- ===== PRODUCTS ===== -->
+<section id="products" class="concrete-bg relative py-32 md:py-48 px-6 md:px-12" style="isolation:isolate">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 md:mb-24">
+            <span class="pa font-inter text-[10px] tracking-[0.4em] uppercase text-off-white/15 block mb-6">Drop 001 · 50 units · No restock</span>
+            <h2 class="pa font-bebas text-5xl md:text-7xl tracking-[0.05em]">THE OBJECTS</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+
+            <!-- Producto 01 -->
+            <div class="pa group hv cursor-pointer" onclick="openDropDate()">
+                <div class="aspect-[3/4] mb-6" style="position:relative;overflow:hidden;background:transparent">
+                    <img src="modelo-1.jpeg" alt="GG Silence — Insignia T-Shirt, model wearing Drop 001" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" style="opacity:0.88;mix-blend-mode:multiply;filter:grayscale(0.8)">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+                    <div class="absolute top-5 left-5">
+                        <span class="font-mono text-[9px] text-gold/60 tracking-[0.3em]">001</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                        <p class="font-inter text-[9px] tracking-[0.3em] uppercase text-gold/70 mb-2">Insignia T-Shirt · Drop 001</p>
+                        <div class="flex items-end justify-between">
+                            <h3 class="font-bebas text-3xl tracking-[0.05em]"><svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></h3>
+                            <span class="font-oswald text-xl tracking-[0.1em] text-gold">€111</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-2 px-1">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">300gsm · Boxy · Absolute black</span>
+                        <span class="font-inter text-[9px] tracking-[0.2em] text-off-white/15">M / L / XL</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="font-inter text-[9px] tracking-[0.25em] uppercase text-off-white/15">November 2026 · 11 units</span>
+                    </div>
+                    <button onclick="event.stopPropagation();openDropDate()" class="w-full border border-off-white/10 text-off-white/40 font-oswald text-[10px] tracking-[0.4em] uppercase py-3 hover:border-off-white/30 hover:text-off-white/70 transition-all duration-500">Access</button>
+                </div>
+            </div>
+
+            <!-- Producto 02 -->
+            <div class="pa group hv cursor-pointer" onclick="openDropDate()">
+                <div class="aspect-[3/4] mb-6" style="position:relative;overflow:hidden;background:transparent">
+                    <img src="modelo-2.jpeg" alt="GG Silence — Insignia T-Shirt, Drop 001 second view" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" style="opacity:0.88;mix-blend-mode:multiply;filter:grayscale(0.8)">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+                    <div class="absolute top-5 left-5">
+                        <span class="font-mono text-[9px] text-gold/60 tracking-[0.3em]">002</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                        <p class="font-inter text-[9px] tracking-[0.3em] uppercase text-gold/70 mb-2">Insignia T-Shirt · Drop 001</p>
+                        <div class="flex items-end justify-between">
+                            <h3 class="font-bebas text-3xl tracking-[0.05em]"><svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></h3>
+                            <span class="font-oswald text-xl tracking-[0.1em] text-gold">€111</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-2 px-1">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">300gsm · Boxy · Absolute black</span>
+                        <span class="font-inter text-[9px] tracking-[0.2em] text-off-white/15">M / L / XL</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="font-inter text-[9px] tracking-[0.25em] uppercase text-off-white/15">November 2026 · 11 units</span>
+                    </div>
+                    <button onclick="event.stopPropagation();openDropDate()" class="w-full border border-off-white/10 text-off-white/40 font-oswald text-[10px] tracking-[0.4em] uppercase py-3 hover:border-off-white/30 hover:text-off-white/70 transition-all duration-500">Access</button>
+                </div>
+            </div>
+
+        </div>
+        <p class="pa text-center font-inter text-[9px] text-off-white/10 tracking-[0.35em] mt-12">When it sells out, it disappears. Forever.</p>
+    </div>
+    <div class="max-w-7xl mx-auto mt-32 md:mt-48"><div class="divl w-full h-px bg-gradient-to-r from-transparent via-off-white/[0.08] to-transparent"></div></div>
+</section>
+
+<!-- ===== JOURNAL ===== -->
+<section id="journal" class="relative py-32 md:py-48 overflow-hidden">
+    <div class="px-6 md:px-12 max-w-7xl mx-auto mb-16">
+        <span class="ja font-inter text-[10px] tracking-[0.4em] uppercase text-off-white/15 block mb-6">Journal</span>
+        <h2 class="ja font-bebas text-5xl md:text-7xl tracking-[0.05em]">THOUGHTS IN<br>THE DARK</h2>
+    </div>
+    <div class="js flex gap-6 px-6 md:px-12 overflow-x-auto pb-8">
+        <article class="ja flex-shrink-0 w-[300px] md:w-[380px] group hv"><div class="relative overflow-hidden aspect-[4/5] mb-5"><img src="https://picsum.photos/seed/discipline-dark-3/800/1000.jpg" alt="" class="w-full h-full object-cover ld transition-transform duration-700 group-hover:scale-105" style="filter:brightness(0.3) saturate(0);" onload="this.classList.add('ld')"><div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div><div class="absolute bottom-6 left-6 right-6"><span class="font-inter text-[9px] tracking-[0.3em] uppercase text-off-white/25 block mb-2">Essay</span><h3 class="font-bebas text-2xl tracking-[0.05em]">Discipline.</h3></div></div><p class="font-inter text-[11px] text-off-white/25 leading-[1.7]">The invisible architecture of every meaningful thing ever built.</p></article>
+        <article class="ja flex-shrink-0 w-[300px] md:w-[380px] group hv"><div class="relative overflow-hidden aspect-[4/5] mb-5"><img src="https://picsum.photos/seed/silence-value-moody-3/800/1000.jpg" alt="" class="w-full h-full object-cover ld transition-transform duration-700 group-hover:scale-105" style="filter:brightness(0.3) saturate(0);" onload="this.classList.add('ld')"><div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div><div class="absolute bottom-6 left-6 right-6"><span class="font-inter text-[9px] tracking-[0.3em] uppercase text-off-white/25 block mb-2">Reflection</span><h3 class="font-bebas text-2xl tracking-[0.05em]">The Value of SILENCE.</h3></div></div><p class="font-inter text-[11px] text-off-white/25 leading-[1.7]">In a world addicted to noise, SILENCE becomes the ultimate luxury.</p></article>
+        <article class="ja flex-shrink-0 w-[300px] md:w-[380px] group hv"><div class="relative overflow-hidden aspect-[4/5] mb-5"><img src="https://picsum.photos/seed/building-dark-noir-3/800/1000.jpg" alt="" class="w-full h-full object-cover ld transition-transform duration-700 group-hover:scale-105" style="filter:brightness(0.3) saturate(0);" onload="this.classList.add('ld')"><div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div><div class="absolute bottom-6 left-6 right-6"><span class="font-inter text-[9px] tracking-[0.3em] uppercase text-off-white/25 block mb-2">Process</span><h3 class="font-bebas text-2xl tracking-[0.05em]">Building in the Dark.</h3></div></div><p class="font-inter text-[11px] text-off-white/25 leading-[1.7]">When no one is watching, that's when the real work begins.</p></article>
+        <article class="ja flex-shrink-0 w-[300px] md:w-[380px] group hv"><div class="relative overflow-hidden aspect-[4/5] mb-5"><img src="https://picsum.photos/seed/process-attention-studio-3/800/1000.jpg" alt="" class="w-full h-full object-cover ld transition-transform duration-700 group-hover:scale-105" style="filter:brightness(0.3) saturate(0);" onload="this.classList.add('ld')"><div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div><div class="absolute bottom-6 left-6 right-6"><span class="font-inter text-[9px] tracking-[0.3em] uppercase text-off-white/25 block mb-2">Philosophy</span><h3 class="font-bebas text-2xl tracking-[0.05em]">Process over Attention.</h3></div></div><p class="font-inter text-[11px] text-off-white/25 leading-[1.7]">The era of performing work is over.</p></article>
+    </div>
+    <div class="max-w-7xl mx-auto mt-32 md:mt-48 px-6 md:px-12"><div class="divl w-full h-px bg-gradient-to-r from-transparent via-off-white/[0.08] to-transparent"></div></div>
+</section>
+
+<!-- ===== LAB ===== -->
+<section id="lab" class="concrete-bg relative py-32 md:py-48 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row gap-16 md:gap-24">
+            <div class="md:w-1/2">
+                <span class="la font-inter text-[10px] tracking-[0.4em] uppercase text-off-white/15 block mb-6">Lab</span>
+                <h2 class="la font-bebas text-5xl md:text-7xl tracking-[0.05em] mb-10">GG LAB</h2>
+                <div class="la bg-black border border-white/[0.04] rounded-sm overflow-hidden">
+                    <div class="flex items-center gap-2 px-4 py-3 border-b border-white/[0.04]"><div class="w-2 h-2 rounded-full bg-off-white/[0.06]"></div><div class="w-2 h-2 rounded-full bg-off-white/[0.06]"></div><div class="w-2 h-2 rounded-full bg-off-white/[0.06]"></div><span class="ml-3 font-mono text-[10px] text-off-white/15 tracking-wider">gg-lab@silence:~</span></div>
+                    <div class="p-6 font-mono text-xs md:text-sm leading-[2]">
+                        <p class="text-off-white/25"><span class="text-off-white/50">$</span> initializing gg_lab<span class="tc text-off-white/50">_</span></p>
+                        <p class="text-off-white/15 mt-1">→ AI systems: <span class="text-off-white/35">online</span></p>
+                        <p class="text-off-white/15">→ Automation: <span class="text-off-white/35">running</span></p>
+                        <p class="text-off-white/15">→ Creativity engine: <span class="text-off-white/35">active</span></p>
+                        <p class="text-off-white/15">→ Technology: <span class="text-off-white/35">evolving</span></p>
+                        <p class="text-off-white/25 mt-3"><span class="text-off-white/50">$</span> status</p>
+                        <p class="text-off-white/15 mt-1">Building in SILENCE. No output shared.</p>
+                        <p class="text-off-white/25 mt-3"><span class="text-off-white/50">$</span> <span class="tc text-off-white/50">_</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex flex-col justify-center">
+                <h3 class="la font-oswald text-2xl md:text-3xl tracking-[0.15em] uppercase text-off-white/70 font-light mb-10">BUILDING IN SILENCE</h3>
+                <div class="space-y-10">
+                    <div class="la group"><div class="flex items-center gap-4 mb-2"><span class="font-mono text-[10px] text-off-white/15">01</span><h4 class="font-oswald text-sm tracking-[0.3em] uppercase text-off-white/50 group-hover:text-off-white transition-colors">Analyze</h4></div><p class="font-inter text-[11px] text-off-white/20 leading-[1.7] pl-8">Data-driven insights through AI. Understanding patterns before they become trends.</p></div>
+                    <div class="la group"><div class="flex items-center gap-4 mb-2"><span class="font-mono text-[10px] text-off-white/15">02</span><h4 class="font-oswald text-sm tracking-[0.3em] uppercase text-off-white/50 group-hover:text-off-white transition-colors">Create</h4></div><p class="font-inter text-[11px] text-off-white/20 leading-[1.7] pl-8">Generative design processes that merge human intuition with machine precision.</p></div>
+                    <div class="la group"><div class="flex items-center gap-4 mb-2"><span class="font-mono text-[10px] text-off-white/15">03</span><h4 class="font-oswald text-sm tracking-[0.3em] uppercase text-off-white/50 group-hover:text-off-white transition-colors">Automate</h4></div><p class="font-inter text-[11px] text-off-white/20 leading-[1.7] pl-8">Systems that work silently in the background. Efficiency without noise.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-32 md:mt-48 px-6 md:px-12"><div class="divl w-full h-px bg-gradient-to-r from-transparent via-off-white/[0.08] to-transparent"></div></div>
+</section>
+
+<!-- ===== COMMUNITY ===== -->
+<section id="community" class="relative py-32 md:py-48 px-6 md:px-12">
+    <div class="max-w-3xl mx-auto text-center">
+        <span class="ca font-inter text-[10px] tracking-[0.4em] uppercase text-off-white/15 block mb-8">Community</span>
+        <h2 class="ca font-bebas text-4xl md:text-6xl lg:text-7xl tracking-[0.02em] leading-[0.95] mb-6">The quiet ones<br>move the world.</h2>
+        <p class="ca font-inter text-sm text-off-white/25 font-light mb-12 max-w-md mx-auto leading-[1.7]">Join those who understand that SILENCE is not absence — it's presence at its most powerful.</p>
+        <div class="ca flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+            <input type="email" placeholder="Your email address" class="flex-1 bg-transparent border border-white/[0.08] px-5 py-4 font-inter text-xs text-off-white/60 placeholder-off-white/15 tracking-wider focus:outline-none focus:border-off-white/30 transition-colors" id="eIn">
+            <button class="hv bg-off-white text-black font-oswald text-[11px] tracking-[0.3em] uppercase px-8 py-4 hover:bg-white transition-colors flex-shrink-0" onclick="handleSub()">Join</button>
+        </div>
+        <p class="ca font-inter text-[9px] text-off-white/10 mt-4 tracking-wider">No noise. No spam. Only SILENCE.</p>
+    </div>
+    <div class="max-w-7xl mx-auto mt-32 md:mt-48 px-6 md:px-12"><div class="divl w-full h-px bg-gradient-to-r from-transparent via-off-white/[0.08] to-transparent"></div></div>
+</section>
+
+<footer class="relative py-12 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto flex items-center justify-center border-t border-white/[0.04] pt-8">
+        <p class="font-oswald text-[9px] text-gold/30 tracking-[0.5em]"><svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></p>
+    </div>
+</footer>
 
 <script>
-/* ==============================================
-   DATOS DE PRODUCTOS
-============================================== */
-var products1 = [
-    { id:1, name:"Silence Hoodie", price:89.99, old:null, badge:"Nuevo", img:"ggs-prod-hood1", size:"S-XXL" },
-    { id:2, name:"Dot Oversized Tee", price:39.99, old:49.99, badge:"Sale", img:"ggs-prod-tee1", size:"S-XL" },
-    { id:3, name:"Void Cargo Pants", price:74.99, old:null, badge:null, img:"ggs-prod-pant1", size:"S-XL" },
-    { id:4, name:"Silence Cap", price:29.99, old:null, badge:"Nuevo", img:"ggs-prod-cap1", size:"Unica" },
-    { id:5, name:"Ghost Zip Hoodie", price:99.99, old:null, badge:null, img:"ggs-prod-hood2", size:"S-XXL" },
-    { id:6, name:"Noise Longsleeve", price:44.99, old:54.99, badge:"Sale", img:"ggs-prod-ls1", size:"S-XL" },
-    { id:7, name:"Mute Joggers", price:64.99, old:null, badge:null, img:"ggs-prod-jog1", size:"S-XL" },
-    { id:8, name:"GG Chain", price:34.99, old:null, badge:"Nuevo", img:"ggs-prod-chain1", size:"Unica" }
-];
+// ===== FORCE ALL IMAGES TO SHOW =====
+setTimeout(()=>{document.querySelectorAll('img').forEach(i=>i.classList.add('ld'))},3000);
 
-var products2 = [
-    { id:9, name:"Basic Logo Tee", price:29.99, old:null, badge:null, img:"ggs-prod-basic1", size:"S-XXL" },
-    { id:10, name:"Blackout Shorts", price:49.99, old:null, badge:null, img:"ggs-prod-short1", size:"S-XL" },
-    { id:11, name:"Silence Socks Pack", price:19.99, old:null, badge:null, img:"ggs-prod-socks1", size:"Unica" },
-    { id:12, name:"Oversized Tank", price:34.99, old:44.99, badge:"Sale", img:"ggs-prod-tank1", size:"S-XL" }
-];
+// ===== CURSOR =====
+const cD=document.getElementById('cDot'),cR=document.getElementById('cRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cD.style.left=mx-2.5+'px';cD.style.top=my-2.5+'px'});
+!function cl(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cR.style.left=rx-18+'px';cR.style.top=ry-18+'px';requestAnimationFrame(cl)}();
+document.querySelectorAll('.hv,a,button,input').forEach(e=>{e.addEventListener('mouseenter',()=>cR.classList.add('hov'));e.addEventListener('mouseleave',()=>cR.classList.remove('hov'))});
 
-/* ==============================================
-   RENDERIZAR PRODUCTOS
-============================================== */
-function renderProducts(arr, containerId) {
-    var grid = document.getElementById(containerId);
-    var html = '';
-    for (var i = 0; i < arr.length; i++) {
-        var p = arr[i];
-        var badgeHtml = p.badge ? '<div class="prod-badge">' + p.badge + '</div>' : '';
-        var oldHtml = p.old ? '<span class="old">' + p.old.toFixed(2) + ' €</span>' : '';
-        html += '<div class="prod-card" data-id="' + p.id + '">' +
-            '<div class="prod-img">' + badgeHtml +
-            '<img src="https://picsum.photos/seed/' + p.img + '/500/660.jpg" alt="' + p.name + '" loading="lazy">' +
-            '<div class="prod-actions">' +
-            '<button class="add-cart" data-id="' + p.id + '">Anadir</button>' +
-            '<button class="wish" aria-label="Favorito"><i class="far fa-heart"></i></button>' +
-            '</div></div>' +
-            '<div class="prod-name">' + p.name + '</div>' +
-            '<div class="prod-price">' + oldHtml + p.price.toFixed(2) + ' €</div></div>';
-    }
-    grid.innerHTML = html;
+// ===== DUST PARTICLES =====
+const dC=document.getElementById('dustCanvas'),dx=dC.getContext('2d');
+let dps=[];
+function rD(){dC.width=innerWidth;dC.height=innerHeight}
+rD();addEventListener('resize',rD);
+class DP{constructor(){this.rs()}rs(){this.x=Math.random()*dC.width;this.y=Math.random()*dC.height;this.s=Math.random()*1.2+.3;this.sx=(Math.random()-.5)*.12;this.sy=(Math.random()-.5)*.08-.03;this.o=Math.random()*.2+.04;this.l=Math.random()*500+200;this.ml=this.l}up(){this.x+=this.sx;this.y+=this.sy;this.l--;if(this.l<=0||this.x<0||this.x>dC.width||this.y<0||this.y>dC.height)this.rs()}dr(){const f=this.l<40?this.l/40:this.l>this.ml-40?(this.ml-this.l)/40:1;dx.beginPath();dx.arc(this.x,this.y,this.s,0,Math.PI*2);dx.fillStyle='rgba(234,234,234,'+(this.o*f)+')';dx.fill()}}
+for(let i=0;i<50;i++)dps.push(new DP);
+!function aD(){dx.clearRect(0,0,dC.width,dC.height);dps.forEach(p=>{p.up();p.dr()});requestAnimationFrame(aD)}();
 
-    /* Eventos de añadir al carrito */
-    var btns = grid.querySelectorAll('.add-cart');
-    for (var j = 0; j < btns.length; j++) {
-        btns[j].addEventListener('click', function(e) {
-            e.stopPropagation();
-            var id = parseInt(this.getAttribute('data-id'));
-            addToCart(id);
+// ===== UTILITY FUNCTIONS =====
+function toggleCart(){const s=document.getElementById('cartSB'),o=document.getElementById('cartOv'),op=s.classList.contains('open');s.classList.toggle('open',!op);o.classList.toggle('hidden',op);document.body.style.overflow=op?'':'hidden'}
+function toggleMM(){const m=document.getElementById('mm'),o=m.classList.contains('opacity-100');m.classList.toggle('opacity-100',!o);m.classList.toggle('pointer-events-auto',!o);m.classList.toggle('opacity-0',o);m.classList.toggle('pointer-events-none',o);document.body.style.overflow=o?'':'hidden'}
+function selS(b){document.querySelectorAll('.sb').forEach(s=>{s.style.borderColor='rgba(234,234,234,0.08)';s.style.color='rgba(234,234,234,0.3)'});b.style.borderColor='rgba(234,234,234,0.4)';b.style.color='#EAEAEA'}
+const emailRx=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+function handleSub(){const i=document.getElementById('eIn');if(emailRx.test(i.value.trim())){i.value='';i.placeholder='Welcome to the SILENCE.';setTimeout(()=>{i.placeholder='Your email address'},3000)}else{i.style.borderColor='rgba(234,234,234,0.35)';i.placeholder='Enter a valid email';setTimeout(()=>{i.style.borderColor='rgba(234,234,234,0.08)';i.placeholder='Your email address'},2000)}}
+document.getElementById('eIn').addEventListener('keypress',e=>{if(e.key==='Enter')handleSub()});
+
+// ===== WAITLIST MODAL =====
+let _wlPrev=null;
+function openWaitlist(product){
+    _wlPrev=document.activeElement;
+    document.getElementById('wlProduct').textContent=product+' · November 2026';
+    document.getElementById('wlProductInput').value=product;
+    document.getElementById('wlForm').style.display='';
+    document.getElementById('wlSuccess').style.display='none';
+    document.getElementById('wlSize').value='';
+    ['M','L','XL'].forEach(t=>{
+        const b=document.getElementById('sz-'+t);
+        if(b){b.setAttribute('aria-pressed','false');b.style.borderColor='rgba(234,234,234,0.07)';b.style.color='rgba(234,234,234,0.3)';b.style.background='transparent';}
+    });
+    const m=document.getElementById('waitlistModal');
+    m.style.display='flex';
+    document.body.style.overflow='hidden';
+    requestAnimationFrame(()=>trapFocus(m));
+}
+function closeWaitlist(){
+    const m=document.getElementById('waitlistModal');
+    releaseFocus(m);
+    m.style.display='none';
+    document.body.style.overflow='';
+    if(_wlPrev)_wlPrev.focus();
+}
+function selectSize(s){
+    ['M','L','XL'].forEach(t=>{
+        const b=document.getElementById('sz-'+t);
+        const active=t===s;
+        b.setAttribute('aria-pressed',active?'true':'false');
+        b.style.borderColor=active?'rgba(154,127,74,0.55)':'rgba(234,234,234,0.07)';
+        b.style.color=active?'#9a7f4a':'rgba(234,234,234,0.3)';
+        b.style.background=active?'rgba(154,127,74,0.04)':'transparent';
+    });
+    document.getElementById('wlSize').value=s;
+}
+function submitWaitlist(e){
+    e.preventDefault();
+    if(!document.getElementById('wlSize').value){
+        ['M','L','XL'].forEach(t=>{
+            const b=document.getElementById('sz-'+t);
+            b.style.borderColor='rgba(200,80,80,0.4)';
         });
-    }
-
-    /* Eventos de wishlist */
-    var wishes = grid.querySelectorAll('.wish');
-    for (var k = 0; k < wishes.length; k++) {
-        wishes[k].addEventListener('click', function(e) {
-            e.stopPropagation();
-            var icon = this.querySelector('i');
-            if (icon.classList.contains('far')) {
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-                icon.style.color = '#ff0033';
-                showToast('Anadido a favoritos');
-            } else {
-                icon.classList.remove('fas');
-                icon.classList.add('far');
-                icon.style.color = '';
-                showToast('Eliminado de favoritos');
-            }
-        });
-    }
-}
-
-renderProducts(products1, 'prodGrid');
-renderProducts(products2, 'prodGrid2');
-
-/* ==============================================
-   CARRITO
-============================================== */
-var cart = [];
-var allProducts = products1.concat(products2);
-
-function findProduct(id) {
-    for (var i = 0; i < allProducts.length; i++) {
-        if (allProducts[i].id === id) return allProducts[i];
-    }
-    return null;
-}
-
-function addToCart(id) {
-    var p = findProduct(id);
-    if (!p) return;
-    /* Verificar si ya esta */
-    for (var i = 0; i < cart.length; i++) {
-        if (cart[i].id === id) {
-            cart[i].qty++;
-            updateCartUI();
-            showToast(p.name + ' — cantidad actualizada');
-            return;
-        }
-    }
-    cart.push({ id: id, qty: 1 });
-    updateCartUI();
-    showToast(p.name + ' — anadido a la bolsa');
-}
-
-function removeFromCart(id) {
-    var newCart = [];
-    for (var i = 0; i < cart.length; i++) {
-        if (cart[i].id !== id) newCart.push(cart[i]);
-    }
-    cart = newCart;
-    updateCartUI();
-}
-
-function updateCartUI() {
-    var countEl = document.getElementById('cartCount');
-    var itemsCountEl = document.getElementById('cartItemsCount');
-    var totalEl = document.getElementById('cartTotal');
-    var bodyEl = document.getElementById('cartBody');
-
-    var total = 0;
-    var count = 0;
-    for (var i = 0; i < cart.length; i++) {
-        var p = findProduct(cart[i].id);
-        if (p) {
-            total += p.price * cart[i].qty;
-            count += cart[i].qty;
-        }
-    }
-
-    countEl.textContent = count;
-    itemsCountEl.textContent = count;
-    totalEl.textContent = total.toFixed(2) + ' €';
-
-    if (count > 0) {
-        countEl.classList.add('show');
-    } else {
-        countEl.classList.remove('show');
-    }
-
-    /* Renderizar items del carrito */
-    if (cart.length === 0) {
-        bodyEl.innerHTML = '<div class="cart-empty">Tu bolsa esta vacia</div>';
+        setTimeout(()=>['M','L','XL'].forEach(t=>{
+            if(!document.getElementById('wlSize').value)document.getElementById('sz-'+t).style.borderColor='rgba(234,234,234,0.07)';
+        }),1200);
         return;
     }
-
-    var html = '';
-    for (var j = 0; j < cart.length; j++) {
-        var p = findProduct(cart[j].id);
-        if (!p) continue;
-        html += '<div class="cart-item">' +
-            '<img src="https://picsum.photos/seed/' + p.img + '/140/180.jpg" alt="' + p.name + '">' +
-            '<div class="cart-item-info">' +
-            '<div class="cart-item-name">' + p.name + '</div>' +
-            '<div class="cart-item-size">' + p.size + ' — x' + cart[j].qty + '</div>' +
-            '<div class="cart-item-price">' + (p.price * cart[j].qty).toFixed(2) + ' €</div>' +
-            '<button class="cart-item-remove" data-id="' + p.id + '">Eliminar</button>' +
-            '</div></div>';
-    }
-    bodyEl.innerHTML = html;
-
-    /* Eventos eliminar */
-    var removeBtns = bodyEl.querySelectorAll('.cart-item-remove');
-    for (var k = 0; k < removeBtns.length; k++) {
-        removeBtns[k].addEventListener('click', function() {
-            removeFromCart(parseInt(this.getAttribute('data-id')));
-        });
-    }
+    const form=e.target;
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()})
+    .then(()=>{
+        form.style.display='none';
+        document.getElementById('wlSuccess').style.display='block';
+        setTimeout(closeWaitlist,3000);
+    }).catch(()=>form.submit());
 }
 
-/* Toggle carrito */
-var cartPanel = document.getElementById('cartPanel');
-var cartOverlay = document.getElementById('cartOverlay');
-document.getElementById('cartBtn').addEventListener('click', function() {
-    cartPanel.classList.toggle('open');
-    cartOverlay.classList.toggle('open');
-});
-document.getElementById('cartClose').addEventListener('click', closeCart);
-cartOverlay.addEventListener('click', closeCart);
-function closeCart() {
-    cartPanel.classList.remove('open');
-    cartOverlay.classList.remove('open');
-}
-
-/* Toast */
-var toastTimer = null;
-function showToast(msg) {
-    var t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    if (toastTimer) clearTimeout(toastTimer);
-    toastTimer = setTimeout(function() { t.classList.remove('show'); }, 2200);
-}
-
-/* Scroll a seccion */
-function scrollToSection(id) {
-    var el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-/* ==============================================
-   NAV HIDE/SHOW AL SCROLL
-============================================== */
-var lastScroll = 0;
-var nav = document.getElementById('mainNav');
-window.addEventListener('scroll', function() {
-    var st = window.pageYOffset;
-    if (st > lastScroll && st > 100) {
-        nav.classList.add('hidden');
-    } else {
-        nav.classList.remove('hidden');
-    }
-    lastScroll = st;
+// ===== NAV SCROLL =====
+addEventListener('scroll',()=>{
+    const n=document.getElementById('nav');
+    if(scrollY>80){n.style.background='rgba(5,5,5,0.88)';n.style.backdropFilter='blur(16px)';n.style.borderBottom='1px solid rgba(234,234,234,0.04)'}
+    else{n.style.background='transparent';n.style.backdropFilter='none';n.style.borderBottom='1px solid transparent'}
 });
 
-/* ==============================================
-   PUERTA DE ACCESO + VORTICE
-============================================== */
-var SECRET_CODE = 'SILENCE';
-var failedAttempts = 0;
-var isTransitioning = false;
+// ===== ENTRY SEQUENCE =====
+let entryDone=false;
+function runEntry(){
+    if(entryDone)return;
+    entryDone=true;
+    document.body.style.overflow='hidden';
 
-var gate = document.getElementById('gate');
-var gateCanvas = document.getElementById('gate-canvas');
-var gateCtx = gateCanvas.getContext('2d');
-var codeInput = document.getElementById('codeInput');
-var gateError = document.getElementById('gateError');
-var gateHint = document.getElementById('gateHint');
-var scanlines = document.getElementById('scanlines');
-var vortexOverlay = document.getElementById('vortex-overlay');
-var vortexCanvas = document.getElementById('vortex-canvas');
-var vortexCtx = vortexCanvas.getContext('2d');
-var flash = document.getElementById('flash');
-var website = document.getElementById('website');
+    const pl=document.getElementById('preloader');
+    const plGG=document.getElementById('plGG');
+    const plSym=document.getElementById('plSym');
+    const vig=document.getElementById('vig');
 
-/* Particulas puerta */
-var gateParticles = [];
-var gateAnimId = null;
+    const tl=gsap.timeline();
 
-function resizeGateCanvas() {
-    gateCanvas.width = window.innerWidth;
-    gateCanvas.height = window.innerHeight;
+    // Símbolo aparece primero
+    tl.to(plSym,{opacity:1,duration:.7,ease:'power2.out'},0.3);
+    // SILENCE aparece con blur a foco
+    tl.to(plGG,{opacity:1,filter:'blur(0px)',duration:1,ease:'power3.out'},0.7);
+    // Pausa
+    tl.to(plGG,{duration:0.6},1.7);
+    // Desaparecen juntos
+    tl.to(plSym,{opacity:0,duration:.4,ease:'power2.in'},2.2);
+    tl.to(plGG,{opacity:0,filter:'blur(4px)',duration:.4,ease:'power2.in'},2.2);
+
+    tl.set(pl,{display:'none'},2.5);
+
+    tl.to(vig,{opacity:1,duration:1.5,ease:'power2.out'},2.6);
+    tl.to('#dustCanvas',{opacity:1,duration:1.5,ease:'power2.out'},2.6);
+
+    tl.to('#hSym',{opacity:1,duration:.8,ease:'power2.out'},3.0);
+    tl.to('#hGG',{opacity:1,duration:1.2,ease:'power3.out'},3.2);
+    tl.to('#hAcc',{width:'80px',duration:.8,ease:'power2.inOut'},3.6);
+    tl.to('#hPhilo',{opacity:1,y:0,duration:.9,ease:'power2.out'},3.8);
+    tl.to('#sInd',{opacity:1,duration:.6,ease:'power2.out'},4.3);
+    tl.to('#nav',{opacity:1,duration:.8,ease:'power2.out'},3.5);
+
+    tl.add(()=>{document.body.style.overflow='';},5);
 }
 
-function initGateParticles() {
-    gateParticles = [];
-    var count = Math.min(100, Math.floor((gateCanvas.width * gateCanvas.height) / 20000));
-    for (var i = 0; i < count; i++) {
-        gateParticles.push({
-            x: Math.random() * gateCanvas.width,
-            y: Math.random() * gateCanvas.height,
-            size: Math.random() * 1.2 + 0.3,
-            vx: (Math.random() - 0.5) * 0.2,
-            vy: (Math.random() - 0.5) * 0.2,
-            alpha: Math.random() * 0.3 + 0.05
-        });
-    }
+if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(runEntry,100));
+}else{
+    setTimeout(runEntry,100);
 }
 
-function drawGateParticles() {
-    if (isTransitioning) return;
-    gateCtx.clearRect(0, 0, gateCanvas.width, gateCanvas.height);
-    var w = gateCanvas.width, h = gateCanvas.height;
-    for (var i = 0; i < gateParticles.length; i++) {
-        var p = gateParticles[i];
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
-        if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
-        gateCtx.beginPath();
-        gateCtx.arc(p.x, p.y, Math.max(0.1, p.size), 0, Math.PI * 2);
-        gateCtx.fillStyle = 'rgba(200,255,0,' + p.alpha + ')';
-        gateCtx.fill();
-    }
-    var maxD = 100;
-    for (var i = 0; i < gateParticles.length; i++) {
-        for (var j = i + 1; j < gateParticles.length; j++) {
-            var dx = gateParticles[i].x - gateParticles[j].x;
-            var dy = gateParticles[i].y - gateParticles[j].y;
-            if (Math.abs(dx) > maxD || Math.abs(dy) > maxD) continue;
-            var d2 = dx * dx + dy * dy;
-            if (d2 < maxD * maxD) {
-                var d = Math.sqrt(d2);
-                gateCtx.beginPath();
-                gateCtx.moveTo(gateParticles[i].x, gateParticles[i].y);
-                gateCtx.lineTo(gateParticles[j].x, gateParticles[j].y);
-                gateCtx.strokeStyle = 'rgba(200,255,0,' + (0.04 * (1 - d / maxD)) + ')';
-                gateCtx.lineWidth = 0.5;
-                gateCtx.stroke();
-            }
-        }
-    }
-    gateAnimId = requestAnimationFrame(drawGateParticles);
-}
+setTimeout(runEntry,2500);
 
-resizeGateCanvas();
-initGateParticles();
-drawGateParticles();
+// ===== GSAP SCROLL ANIMATIONS =====
+gsap.registerPlugin(ScrollTrigger);
 
-/* Input */
-codeInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') checkCode();
-});
+gsap.to('#hero img',{yPercent:15,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+ScrollTrigger.create({trigger:'#hero',start:'top top',end:'15% top',onLeave:()=>gsap.to('#sInd',{opacity:0,duration:.4}),onEnterBack:()=>gsap.to('#sInd',{opacity:1,duration:.4})});
 
-function checkCode() {
-    if (isTransitioning) return;
-    var val = codeInput.value.trim().toUpperCase();
-    if (val === SECRET_CODE) {
-        isTransitioning = true;
-        if (gateAnimId) cancelAnimationFrame(gateAnimId);
-        startTransition();
-    } else {
-        failedAttempts++;
-        codeInput.classList.add('wrong');
-        gateError.classList.add('show');
-        codeInput.value = '';
-        setTimeout(function() { codeInput.classList.remove('wrong'); }, 500);
-        setTimeout(function() { gateError.classList.remove('show'); }, 2000);
-        if (failedAttempts >= 3) gateHint.classList.add('show');
-    }
-}
-
-/* Vortice */
-function resizeVortexCanvas() {
-    vortexCanvas.width = window.innerWidth;
-    vortexCanvas.height = window.innerHeight;
-}
-resizeVortexCanvas();
-
-var vParticles = [];
-var dataStreams = [];
-var vPhase = 0;
-var vStartTime = 0;
-var vRadius = 0;
-
-function startTransition() {
-    vStartTime = performance.now();
-    vPhase = 0;
-    vRadius = 0;
-    vParticles = [];
-    dataStreams = [];
-    var cx = vortexCanvas.width / 2, cy = vortexCanvas.height / 2;
-    for (var i = 0; i < 200; i++) {
-        var a = Math.random() * Math.PI * 2;
-        var d = 30 + Math.random() * 350;
-        vParticles.push({ x: cx + Math.cos(a) * d, y: cy + Math.sin(a) * d, size: Math.random() * 2.5 + 0.5, speed: 1.5 + Math.random() * 3, life: 1, isRed: Math.random() < 0.15 });
-    }
-    var sc = 'GGSILENCE01.#_-=+/';
-    for (var i = 0; i < 15; i++) {
-        var a = Math.random() * Math.PI * 2;
-        var d = 100 + Math.random() * 400;
-        var chars = [];
-        var len = 4 + Math.floor(Math.random() * 8);
-        for (var c = 0; c < len; c++) chars.push(sc[Math.floor(Math.random() * sc.length)]);
-        dataStreams.push({ angle: a, dist: d, chars: chars, speed: 2 + Math.random() * 4, life: 1, fontSize: 8 + Math.random() * 10 });
-    }
-    gate.classList.add('glitching');
-    scanlines.classList.add('active');
-    vortexOverlay.style.opacity = '1';
-    requestAnimationFrame(animateVortex);
-}
-
-function animateVortex(ts) {
-    var elapsed = ts - vStartTime;
-    var t = elapsed / 1000;
-    var cx = vortexCanvas.width / 2, cy = vortexCanvas.height / 2;
-    var maxR = Math.sqrt(cx * cx + cy * cy) + 80;
-    vortexCtx.clearRect(0, 0, vortexCanvas.width, vortexCanvas.height);
-
-    if (vPhase === 0) {
-        if (Math.random() < 0.15) {
-            vortexCtx.fillStyle = 'rgba(200,255,0,' + (Math.random() * 0.08) + ')';
-            vortexCtx.fillRect(0, Math.random() * vortexCanvas.height, vortexCanvas.width, 2 + Math.random() * 6);
-        }
-        if (Math.random() < 0.1) {
-            vortexCtx.fillStyle = 'rgba(255,0,50,' + (Math.random() * 0.06) + ')';
-            vortexCtx.fillRect(0, Math.random() * vortexCanvas.height, vortexCanvas.width, 1 + Math.random() * 4);
-        }
-        if (elapsed > 700) { vPhase = 1; gate.classList.remove('glitching'); gate.classList.add('swallowing', 'shaking'); scanlines.classList.remove('active'); }
-    }
-
-    if (vPhase === 1) {
-        var progress = Math.min(1, (elapsed - 700) / 1700);
-        var eased = progress * progress * progress;
-        vRadius = Math.max(0.1, eased * maxR);
-        drawVortexBody(cx, cy, vRadius, t);
-        drawVortexParticles(cx, cy, vRadius);
-        drawDataStreams(cx, cy, vRadius);
-        if (elapsed > 2400) { vPhase = 2; gate.classList.remove('shaking'); }
-    }
-
-    if (vPhase === 2) {
-        vortexCtx.fillStyle = '#000000';
-        vortexCtx.fillRect(0, 0, vortexCanvas.width, vortexCanvas.height);
-        flash.classList.add('bang');
-        website.classList.add('visible');
-        setTimeout(function() {
-            gate.style.display = 'none';
-            vortexOverlay.style.opacity = '0';
-            flash.classList.remove('bang');
-            vPhase = 3;
-            initScrollReveal();
-        }, 900);
-    }
-    if (vPhase < 3) requestAnimationFrame(animateVortex);
-}
-
-function drawVortexBody(cx, cy, radius, time) {
-    if (radius < 1) return;
-    vortexCtx.save();
-    vortexCtx.beginPath();
-    var steps = 180;
-    for (var i = 0; i <= steps; i++) {
-        var a = (i / steps) * Math.PI * 2;
-        var w = Math.sin(a * 7 + time * 10) * 10 * Math.min(1, radius / 80) + Math.sin(a * 13 + time * 15) * 5 * Math.min(1, radius / 120) + Math.sin(a * 3 - time * 6) * 15 * Math.min(1, radius / 250);
-        var r = Math.max(0.1, radius + w);
-        var x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
-        if (i === 0) vortexCtx.moveTo(x, y); else vortexCtx.lineTo(x, y);
-    }
-    vortexCtx.closePath();
-    var grad = vortexCtx.createRadialGradient(cx, cy, Math.max(0.1, radius * 0.6), cx, cy, radius);
-    grad.addColorStop(0, '#000000');
-    grad.addColorStop(0.75, 'rgba(0,0,0,0.98)');
-    grad.addColorStop(1, 'rgba(0,0,0,0)');
-    vortexCtx.fillStyle = grad;
-    vortexCtx.fill();
-    var gi = 0.5 + Math.sin(time * 12) * 0.2;
-    vortexCtx.strokeStyle = 'rgba(200,255,0,' + gi + ')';
-    vortexCtx.lineWidth = 2.5;
-    vortexCtx.stroke();
-    vortexCtx.strokeStyle = 'rgba(200,255,0,' + (gi * 0.2) + ')';
-    vortexCtx.lineWidth = 8;
-    vortexCtx.stroke();
-    for (var ring = 0; ring < 4; ring++) {
-        var rr = Math.max(0.1, radius * (0.2 + ring * 0.18));
-        var al = 0.12 - ring * 0.025;
-        vortexCtx.beginPath();
-        for (var i = 0; i <= 80; i++) {
-            var a = (i / 80) * Math.PI * 2;
-            var sw = Math.sin(a * 5 + time * (6 + ring * 2.5)) * 6;
-            var r = Math.max(0.1, rr + sw);
-            var x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
-            if (i === 0) vortexCtx.moveTo(x, y); else vortexCtx.lineTo(x, y);
-        }
-        vortexCtx.closePath();
-        vortexCtx.strokeStyle = 'rgba(200,255,0,' + Math.max(0, al) + ')';
-        vortexCtx.lineWidth = 0.8;
-        vortexCtx.stroke();
-    }
-    for (var i = 0; i < 16; i++) {
-        var ba = (i / 16) * Math.PI * 2 + time * 2.5;
-        var ir = Math.max(0.1, radius * 0.4), or = Math.max(0.1, radius * 1.15), mr = Math.max(0.1, radius * 0.8);
-        vortexCtx.beginPath();
-        vortexCtx.moveTo(cx + Math.cos(ba) * ir, cy + Math.sin(ba) * ir);
-        vortexCtx.quadraticCurveTo(cx + Math.cos(ba + 0.15) * mr, cy + Math.sin(ba + 0.15) * mr, cx + Math.cos(ba + 0.08) * or, cy + Math.sin(ba + 0.08) * or);
-        vortexCtx.strokeStyle = 'rgba(200,255,0,' + Math.max(0, 0.06 + Math.sin(time * 8 + i * 1.3) * 0.03) + ')';
-        vortexCtx.lineWidth = 1;
-        vortexCtx.stroke();
-    }
-    vortexCtx.restore();
-}
-
-function drawVortexParticles(cx, cy, radius) {
-    for (var i = 0; i < vParticles.length; i++) {
-        var p = vParticles[i];
-        var dx = cx - p.x, dy = cy - p.y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        var angle = Math.atan2(dy, dx);
-        var sa = angle + 0.7;
-        var pull = Math.max(0.3, 4 - dist / 120);
-        p.x += Math.cos(sa) * p.speed * pull;
-        p.y += Math.sin(sa) * p.speed * pull;
-        if (dist < radius) p.life -= 0.04;
-        if (p.life <= 0 || dist < 15) {
-            var na = Math.random() * Math.PI * 2, nd = radius + 30 + Math.random() * 250;
-            p.x = cx + Math.cos(na) * nd; p.y = cy + Math.sin(na) * nd;
-            p.life = 1; p.size = Math.random() * 2.5 + 0.5;
-        }
-        if (p.life <= 0) continue;
-        var al = p.life * 0.7;
-        vortexCtx.beginPath();
-        vortexCtx.arc(p.x, p.y, Math.max(0.1, p.size * p.life), 0, Math.PI * 2);
-        vortexCtx.fillStyle = p.isRed ? 'rgba(255,40,40,' + al + ')' : 'rgba(200,255,0,' + al + ')';
-        vortexCtx.fill();
-    }
-}
-
-function drawDataStreams(cx, cy, radius) {
-    vortexCtx.save();
-    for (var i = 0; i < dataStreams.length; i++) {
-        var s = dataStreams[i];
-        s.dist -= s.speed * 1.5;
-        s.angle += 0.02;
-        if (s.dist < radius) s.life -= 0.03;
-        if (s.life <= 0 || s.dist < 30) { s.angle = Math.random() * Math.PI * 2; s.dist = radius + 100 + Math.random() * 300; s.life = 1; }
-        if (s.life <= 0) continue;
-        var bx = cx + Math.cos(s.angle) * s.dist, by = cy + Math.sin(s.angle) * s.dist;
-        vortexCtx.font = s.fontSize + 'px monospace';
-        vortexCtx.textAlign = 'center';
-        for (var c = 0; c < s.chars.length; c++) {
-            var off = c * 10;
-            var chx = bx + Math.cos(s.angle + Math.PI / 2) * off;
-            var chy = by + Math.sin(s.angle + Math.PI / 2) * off;
-            var ca = s.life * (1 - c / s.chars.length) * 0.35;
-            vortexCtx.fillStyle = 'rgba(200,255,0,' + Math.max(0, ca) + ')';
-            vortexCtx.fillText(s.chars[c], chx, chy);
-        }
-    }
-    vortexCtx.restore();
-}
-
-/* ==============================================
-   SCROLL REVEAL
-============================================== */
-function initScrollReveal() {
-    var cards = document.querySelectorAll('.prod-card, .look-card');
-    var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) entry.target.classList.add('revealed');
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-    cards.forEach(function(c, i) {
-        c.style.transitionDelay = (i % 4) * 0.08 + 's';
-        observer.observe(c);
+function animS(sel,props){
+    gsap.utils.toArray(sel).forEach((el,i)=>{
+        gsap.fromTo(el,props||{opacity:0,y:40},{opacity:1,y:0,x:0,duration:.9,ease:'power2.out',scrollTrigger:{trigger:el,start:'top 87%',toggleActions:'play none none none'},delay:i*.07});
     });
 }
+animS('.ma');animS('.da',{opacity:0,y:50});animS('.pa',{opacity:0,y:40});
+function openProduct(n){document.getElementById('drop').scrollIntoView({behavior:'smooth'})}
+animS('.ja',{opacity:0,x:40,y:0});animS('.la');animS('.ca',{opacity:0,y:30});
 
-/* ==============================================
-   RESIZE
-============================================== */
-window.addEventListener('resize', function() {
-    resizeGateCanvas(); initGateParticles(); resizeVortexCanvas();
+gsap.to('#manifesto .ma img',{yPercent:-8,ease:'none',scrollTrigger:{trigger:'#manifesto',start:'top bottom',end:'bottom top',scrub:true}});
+
+gsap.utils.toArray('.divl').forEach(l=>{gsap.to(l,{scaleX:1,duration:1.5,ease:'power2.inOut',scrollTrigger:{trigger:l,start:'top 92%',toggleActions:'play none none none'}})});
+
+// ===== GLOBAL ESC FOR ALL MODALS =====
+document.addEventListener('keydown',e=>{
+    if(e.key!=='Escape')return;
+    if(document.getElementById('waitlistModal')?.style.display==='flex')closeWaitlist();
 });
 
-/* Foco automatico */
-setTimeout(function() { codeInput.focus(); }, 600);
+// ===== FOCUS TRAP UTILITY =====
+function trapFocus(modal){
+    const sel='button:not([disabled]),input:not([disabled]),[tabindex]:not([tabindex="-1"])';
+    const els=[...modal.querySelectorAll(sel)].filter(e=>!e.closest('[style*="display:none"]'));
+    if(!els.length)return;
+    const first=els[0],last=els[els.length-1];
+    function ft(e){
+        if(e.key!=='Tab')return;
+        if(e.shiftKey){if(document.activeElement===first){e.preventDefault();last.focus()}}
+        else{if(document.activeElement===last){e.preventDefault();first.focus()}}
+    }
+    modal._trapFn=ft;
+    modal.addEventListener('keydown',ft);
+    first.focus();
+}
+function releaseFocus(modal){
+    if(modal._trapFn){modal.removeEventListener('keydown',modal._trapFn);modal._trapFn=null}
+}
+
+// ===== DROP DATE MODAL =====
+let _ddPrev=null;
+function openDropDate(){
+    _ddPrev=document.activeElement;
+    const m=document.getElementById('dropDateModal');
+    m.style.display='flex';
+    document.body.style.overflow='hidden';
+    gsap.fromTo(m,{opacity:0},{opacity:1,duration:.7,ease:'power2.out',onComplete:()=>trapFocus(m)});
+}
+function closeDropDate(){
+    const m=document.getElementById('dropDateModal');
+    releaseFocus(m);
+    gsap.to(m,{opacity:0,duration:.45,ease:'power2.in',onComplete:()=>{
+        m.style.display='none';
+        document.body.style.overflow='';
+        if(_ddPrev)_ddPrev.focus();
+    }});
+}
+document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&document.getElementById('dropDateModal')?.style.display==='flex')closeDropDate();
+});
+
+// ===== MANIFESTO MODAL =====
+let _mfObs=null,_mfPrev=null;
+function openManifesto(){
+    _mfPrev=document.activeElement;
+    const m=document.getElementById('manifestoModal');
+    m.style.display='block';
+    m.scrollTop=0;
+    document.body.style.overflow='hidden';
+    gsap.fromTo(m,{opacity:0},{opacity:1,duration:.9,ease:'power2.out',onComplete:()=>trapFocus(m)});
+    if(!_mfObs){
+        _mfObs=new IntersectionObserver(entries=>{
+            entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
+        },{root:m,rootMargin:'0px 0px -5% 0px',threshold:0.12});
+        m.querySelectorAll('.mf').forEach(el=>_mfObs.observe(el));
+    }
+}
+function closeManifesto(){
+    const m=document.getElementById('manifestoModal');
+    releaseFocus(m);
+    gsap.to(m,{opacity:0,duration:.55,ease:'power2.in',onComplete:()=>{
+        m.style.display='none';
+        document.body.style.overflow='';
+        m.querySelectorAll('.mf').forEach(el=>el.classList.remove('vis'));
+        if(_mfObs){_mfObs.disconnect();_mfObs=null;}
+        if(_mfPrev)_mfPrev.focus();
+    }});
+}
+document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){
+        const m=document.getElementById('manifestoModal');
+        if(m&&m.style.display==='block')closeManifesto();
+    }
+});
+
+// ===== NIGHT JOURNEY =====
+(function(){
+const jData=[
+  {time:'23:00'},{time:'00:30'},{time:'02:00'},
+  {time:'03:45'},{time:'05:10'},{time:'06:00'}
+];
+const STEP=44; // px between dot centers
+const DOT=4;   // dot diameter px
+const TRACK_H=(jData.length-1)*STEP; // 220px
+
+const jNav=document.getElementById('jNav');
+const jInner=document.getElementById('jInner');
+if(!jNav||!jInner)return;
+
+// Build sidebar HTML
+jInner.innerHTML=
+  `<div style="position:absolute;left:${DOT/2}px;top:${STEP/2-DOT/2}px;width:1px;height:${TRACK_H}px;background:rgba(234,234,234,0.05)"></div>`+
+  `<div id="jF" style="position:absolute;left:${DOT/2}px;top:${STEP/2-DOT/2}px;width:1px;height:0;background:rgba(154,127,74,0.55);transition:height .35s ease"></div>`+
+  jData.map((c,i)=>`
+    <div style="height:${STEP}px;display:flex;align-items:center;gap:10px">
+      <div id="jd${i}" style="width:${DOT}px;height:${DOT}px;border-radius:50%;background:rgba(234,234,234,0.09);flex-shrink:0;position:relative;z-index:2;transition:background .45s,transform .38s"></div>
+      <span id="jl${i}" style="font-family:'Oswald',sans-serif;font-size:8px;letter-spacing:0.45em;color:rgba(234,234,234,0.09);white-space:nowrap;transition:color .45s">${c.time}</span>
+    </div>`).join('');
+
+const journeyEl=document.getElementById('journey');
+const drRevEl=document.getElementById('drReveal');
+const panels=[...document.querySelectorAll('.city-panel')];
+let navVis=false,lastIdx=-99;
+
+function setActive(idx){
+  if(idx===lastIdx)return;
+  lastIdx=idx;
+  jData.forEach((_,i)=>{
+    const d=document.getElementById('jd'+i);
+    const l=document.getElementById('jl'+i);
+    if(!d)return;
+    if(i===idx){d.style.background='#9a7f4a';d.style.transform='scale(1.85)';l.style.color='rgba(154,127,74,0.75)'}
+    else if(i<idx){d.style.background='rgba(154,127,74,0.28)';d.style.transform='scale(1)';l.style.color='rgba(234,234,234,0.18)'}
+    else{d.style.background='rgba(234,234,234,0.08)';d.style.transform='scale(1)';l.style.color='rgba(234,234,234,0.08)'}
+  });
+  const f=document.getElementById('jF');
+  if(f)f.style.height=(idx>0?Math.min(idx,jData.length-1)*STEP:0)+'px';
+}
+
+function onScroll(){
+  if(!journeyEl)return;
+  const vH=window.innerHeight;
+  const jR=journeyEl.getBoundingClientRect();
+  const inJ=jR.top<vH*0.8&&jR.bottom>vH*0.3;
+  if(inJ!==navVis){navVis=inJ;jNav.style.opacity=inJ?'1':'0'}
+  let active=-1;
+  panels.forEach((p,i)=>{const r=p.getBoundingClientRect();if(r.top<vH*0.55&&r.bottom>0)active=i});
+  if(drRevEl){const r=drRevEl.getBoundingClientRect();if(r.top<vH*0.55)active=5}
+  if(active>=0)setActive(active);
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+// City body fade-in
+document.querySelectorAll('.city-body').forEach(el=>{
+  gsap.fromTo(el,{opacity:0,y:30},{opacity:1,y:0,duration:1.1,ease:'power2.out',
+    scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}});
+});
+
+// Intro lines
+document.querySelectorAll('.ji').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:22},{opacity:1,y:0,duration:.95,ease:'power2.out',delay:i*.1,
+    scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}});
+});
+
+// Parallax on city photos
+document.querySelectorAll('.city-photo').forEach(img=>{
+  gsap.fromTo(img,{scale:1.1,y:-28},{scale:1.1,y:28,ease:'none',
+    scrollTrigger:{trigger:img.closest('.city-wrap'),start:'top bottom',end:'bottom top',scrub:1.2}});
+});
+
+// Drop reveal sequence
+if(drRevEl){
+  const tl=gsap.timeline({scrollTrigger:{trigger:drRevEl,start:'top 68%',toggleActions:'play none none none'}});
+  tl.to('#drClock',{opacity:1,duration:1.5,ease:'power2.out'},0.2)
+    .to('#drTitle',{opacity:1,duration:1.6,ease:'power3.out'},1.8)
+    .to('#drWord', {opacity:1,duration:1.3,ease:'power2.out'},2.7)
+    .to('#drLine', {opacity:1,duration:1.1,ease:'power2.out'},3.6)
+    .to('#drBtn',  {opacity:1,duration:.9,ease:'power2.out'},4.5);
+}
+})();
 </script>
+
+<!-- DROP DATE MODAL -->
+<div id="dropDateModal" role="dialog" aria-modal="true" aria-labelledby="dd-title" onclick="if(event.target===this)closeDropDate()" style="display:none;position:fixed;inset:0;z-index:20000;background:rgba(5,5,5,0.97);backdrop-filter:blur(24px);align-items:center;justify-content:center;padding:24px">
+    <div style="text-align:center;max-width:500px;width:100%;position:relative">
+        <button onclick="closeDropDate()" aria-label="Close dialog" style="position:absolute;top:-48px;right:0;background:none;border:none;color:rgba(234,234,234,0.15);font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.35em;cursor:pointer;text-transform:uppercase;transition:color .3s" onmouseover="this.style.color='rgba(234,234,234,0.45)'" onmouseout="this.style.color='rgba(234,234,234,0.15)'">✕ &nbsp;Close</button>
+
+        <p style="font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:0.6em;color:rgba(234,234,234,0.18);text-transform:uppercase;margin-bottom:32px">Drop 001 · GG SILENCE</p>
+
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,12vw,88px);letter-spacing:0.06em;line-height:0.88;color:rgba(234,234,234,0.08);margin-bottom:20px">ACCESS</p>
+        <p id="dd-title" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,12vw,88px);letter-spacing:0.06em;line-height:0.88;color:#EAEAEA;margin-bottom:48px">DENIED</p>
+
+        <div style="width:1px;height:48px;background:rgba(154,127,74,0.2);margin:0 auto 48px"></div>
+
+        <p style="font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.5em;color:rgba(234,234,234,0.2);text-transform:uppercase;margin-bottom:20px">Until</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,10vw,72px);letter-spacing:0.05em;line-height:0.9;color:rgba(154,127,74,0.85);margin-bottom:56px">11 · October<br>2026</p>
+
+        <p style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(234,234,234,0.18);line-height:2;font-weight:300;margin-bottom:40px;letter-spacing:0.08em">50 units. No restock. Access by waitlist only.</p>
+
+        <button onclick="closeDropDate();openWaitlist('Drop 001 · €485')" style="width:100%;background:transparent;border:1px solid rgba(154,127,74,0.25);color:rgba(154,127,74,0.7);font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.45em;text-transform:uppercase;padding:18px;cursor:pointer;transition:all .4s" onmouseover="this.style.borderColor='rgba(154,127,74,0.6)';this.style.color='#9a7f4a';this.style.background='rgba(154,127,74,0.04)'" onmouseout="this.style.borderColor='rgba(154,127,74,0.25)';this.style.color='rgba(154,127,74,0.7)';this.style.background='transparent'">Join the waitlist</button>
+    </div>
+</div>
+
+<!-- MANIFESTO MODAL -->
+<div id="manifestoModal" role="dialog" aria-modal="true" aria-labelledby="mf-title" style="display:none;position:fixed;inset:0;z-index:25000;background:#050505;overflow-y:auto;opacity:0">
+    <button onclick="closeManifesto()" aria-label="Close manifesto" style="position:fixed;top:28px;right:28px;z-index:1;background:none;border:none;color:rgba(234,234,234,0.18);font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.35em;cursor:pointer;text-transform:uppercase;transition:color .4s;padding:8px" onmouseover="this.style.color='rgba(234,234,234,0.55)'" onmouseout="this.style.color='rgba(234,234,234,0.18)'">✕ &nbsp;Close</button>
+    <div style="min-height:100vh;padding:110px 24px 160px;max-width:660px;margin:0 auto">
+
+        <div class="mf" style="margin-bottom:72px">
+            <svg width="26" height="16" fill="rgba(154,127,74,0.55)" aria-hidden="true"><use href="#lm"/></svg>
+        </div>
+
+        <div class="mf" style="margin-bottom:72px">
+            <p id="mf-title" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,64px);letter-spacing:0.04em;line-height:0.88;color:#EAEAEA">We don't launch<br>collections.<br>We make<br>decisions.</p>
+        </div>
+
+        <div class="mf mf-div"></div>
+
+        <div class="mf" style="margin-bottom:48px">
+            <p style="font-family:'Inter',sans-serif;font-size:14px;line-height:2.1;color:rgba(234,234,234,0.32);font-weight:300">There is a world that speaks constantly.<br>That announces before it delivers.<br>That performs confidence instead of building it.</p>
+        </div>
+        <div class="mf" style="margin-bottom:72px">
+            <p style="font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:0.28em;color:rgba(234,234,234,0.22);text-transform:uppercase">We are not part of that world.</p>
+        </div>
+
+        <div class="mf mf-div"></div>
+
+        <div class="mf" style="margin-bottom:32px">
+            <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,5vw,44px);letter-spacing:0.04em;color:#EAEAEA">We build in silence.</p>
+        </div>
+        <div class="mf" style="margin-bottom:72px">
+            <p style="font-family:'Inter',sans-serif;font-size:13px;line-height:2.1;color:rgba(234,234,234,0.28);font-weight:300">Not because we have nothing to say —<br>but because we understand that the work<br>speaks louder than any announcement ever could.</p>
+        </div>
+
+        <div class="mf mf-div"></div>
+
+        <div class="mf" style="margin-bottom:28px">
+            <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,5vw,44px);letter-spacing:0.04em;color:#EAEAEA">Silence is not the<br>absence of presence.</p>
+        </div>
+        <div class="mf" style="margin-bottom:32px">
+            <p style="font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:0.25em;color:rgba(154,127,74,0.65);text-transform:uppercase">It is presence at its most powerful.</p>
+        </div>
+        <div class="mf" style="margin-bottom:72px">
+            <p style="font-family:'Inter',sans-serif;font-size:13px;line-height:2.1;color:rgba(234,234,234,0.22);font-weight:300">The things that last —<br>in architecture, in craft, in music —<br>were never rushed.<br>They were built in the hours<br>when no one was watching.</p>
+        </div>
+
+        <div class="mf mf-div"></div>
+
+        <div class="mf" style="margin-bottom:28px">
+            <p style="font-family:'Inter',sans-serif;font-size:14px;line-height:2.1;color:rgba(234,234,234,0.3);font-weight:300">GG SILENCE exists for those<br>who understand that choosing less<br>is not a compromise.</p>
+        </div>
+        <div class="mf" style="margin-bottom:72px">
+            <p style="font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:0.3em;color:rgba(154,127,74,0.55);text-transform:uppercase">It is a discipline.</p>
+        </div>
+
+        <div class="mf mf-div"></div>
+
+        <div class="mf" style="margin-bottom:56px">
+            <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,7vw,58px);letter-spacing:0.04em;line-height:1.05;color:#EAEAEA">One garment.<br>No logos.<br>No seasons.<br>No noise.</p>
+        </div>
+        <div class="mf" style="margin-bottom:72px">
+            <p style="font-family:'Inter',sans-serif;font-size:13px;line-height:2.1;color:rgba(234,234,234,0.2);font-weight:300">Just the weight of the material<br>and the clarity of intention.</p>
+        </div>
+
+        <div class="mf mf-div"></div>
+
+        <div class="mf" style="margin-bottom:24px">
+            <p style="font-family:'Inter',sans-serif;font-size:14px;line-height:2;color:rgba(234,234,234,0.28);font-weight:300">We don't ask for your attention.</p>
+        </div>
+        <div class="mf" style="margin-bottom:40px">
+            <p style="font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:0.22em;color:rgba(234,234,234,0.42);text-transform:uppercase">We earn your trust.</p>
+        </div>
+        <div class="mf" style="margin-bottom:96px">
+            <p style="font-family:'Inter',sans-serif;font-size:12px;line-height:2.8;color:rgba(234,234,234,0.15);font-weight:300;letter-spacing:0.12em">Drop by drop.<br>Piece by piece.<br>In silence.</p>
+        </div>
+
+        <div class="mf" style="text-align:center;padding:64px 0 40px;border-top:1px solid rgba(234,234,234,0.04)">
+            <svg width="30" height="18" fill="rgba(154,127,74,0.35)" aria-hidden="true" style="display:block;margin:0 auto 20px"><use href="#lm"/></svg>
+            <p style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:0.4em;color:rgba(234,234,234,0.25)">GG SILENCE</p>
+            <p style="font-family:'Oswald',sans-serif;font-size:8px;letter-spacing:0.55em;color:rgba(234,234,234,0.1);margin-top:8px">2026</p>
+        </div>
+
+        <div class="mf" style="text-align:center;padding:48px 0 0">
+            <p style="font-family:'Inter',sans-serif;font-size:10px;line-height:2.2;color:rgba(234,234,234,0.12);font-weight:300;letter-spacing:0.35em;text-transform:uppercase">"The most powerful silence<br>is the one that precedes something inevitable."</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- WAITLIST MODAL -->
+<div id="waitlistModal" role="dialog" aria-modal="true" aria-labelledby="wl-title" onclick="if(event.target===this)closeWaitlist()" style="display:none;position:fixed;inset:0;z-index:20000;background:rgba(5,5,5,0.94);backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:24px">
+    <div style="background:#0a0a0a;border:1px solid rgba(154,127,74,0.12);max-width:420px;width:100%;padding:48px 40px;position:relative">
+        <button onclick="closeWaitlist()" aria-label="Close waitlist form" style="position:absolute;top:20px;right:24px;background:none;border:none;color:rgba(234,234,234,0.2);font-size:14px;cursor:pointer;font-family:'Oswald',sans-serif;letter-spacing:0.15em;transition:color .3s" onmouseover="this.style.color='rgba(234,234,234,0.6)'" onmouseout="this.style.color='rgba(234,234,234,0.2)'">✕</button>
+        <p style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.5em;color:#9a7f4a;margin-bottom:16px"><svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></p>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:0.08em;color:#EAEAEA;margin-bottom:8px">Waitlist</h2>
+        <p id="wlProduct" style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(234,234,234,0.25);margin-bottom:6px">November 2026</p>
+        <div style="display:flex;gap:16px;margin-bottom:32px">
+            <span style="font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:0.4em;color:rgba(154,127,74,0.45);text-transform:uppercase">50 M</span>
+            <span style="color:rgba(234,234,234,0.1);font-size:9px">·</span>
+            <span style="font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:0.4em;color:rgba(154,127,74,0.45);text-transform:uppercase">50 L</span>
+            <span style="color:rgba(234,234,234,0.1);font-size:9px">·</span>
+            <span style="font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:0.4em;color:rgba(154,127,74,0.45);text-transform:uppercase">50 XL</span>
+        </div>
+        <form id="wlForm" name="lista-de-espera" data-netlify="true" method="POST" onsubmit="submitWaitlist(event)" novalidate>
+            <input type="hidden" name="form-name" value="lista-de-espera">
+            <input type="hidden" name="producto" id="wlProductInput">
+            <input type="hidden" name="talla" id="wlSize">
+            <div style="margin-bottom:12px">
+                <label for="wlNombre" class="sr-only">Full name</label>
+                <input type="text" id="wlNombre" name="nombre" placeholder="NAME" required autocomplete="name"
+                    style="width:100%;background:transparent;border:1px solid rgba(234,234,234,0.07);color:#EAEAEA;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.2em;padding:14px 16px;outline:none;transition:border-color .3s;box-sizing:border-box;display:block"
+                    onfocus="this.style.borderColor='rgba(154,127,74,0.35)'" onblur="this.style.borderColor='rgba(234,234,234,0.07)'">
+            </div>
+            <div style="margin-bottom:16px">
+                <label for="wlEmail" class="sr-only">Email address</label>
+                <input type="email" id="wlEmail" name="email" placeholder="EMAIL" required autocomplete="email"
+                    style="width:100%;background:transparent;border:1px solid rgba(234,234,234,0.07);color:#EAEAEA;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.2em;padding:14px 16px;outline:none;transition:border-color .3s;box-sizing:border-box;display:block"
+                    onfocus="this.style.borderColor='rgba(154,127,74,0.35)'" onblur="this.style.borderColor='rgba(234,234,234,0.07)'">
+            </div>
+            <fieldset style="border:none;padding:0;margin:0 0 24px">
+                <legend style="font-family:'Oswald',sans-serif;font-size:8px;letter-spacing:0.45em;color:rgba(234,234,234,0.35);text-transform:uppercase;margin-bottom:10px;display:block">Size</legend>
+                <div style="display:flex;gap:8px">
+                    <button type="button" id="sz-M" onclick="selectSize('M')" aria-pressed="false" style="flex:1;background:transparent;border:1px solid rgba(234,234,234,0.07);color:rgba(234,234,234,0.3);font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.3em;padding:12px 0;cursor:pointer;transition:all .3s">M</button>
+                    <button type="button" id="sz-L" onclick="selectSize('L')" aria-pressed="false" style="flex:1;background:transparent;border:1px solid rgba(234,234,234,0.07);color:rgba(234,234,234,0.3);font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.3em;padding:12px 0;cursor:pointer;transition:all .3s">L</button>
+                    <button type="button" id="sz-XL" onclick="selectSize('XL')" aria-pressed="false" style="flex:1;background:transparent;border:1px solid rgba(234,234,234,0.07);color:rgba(234,234,234,0.3);font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.3em;padding:12px 0;cursor:pointer;transition:all .3s">XL</button>
+                </div>
+            </fieldset>
+            <button type="submit" style="width:100%;background:transparent;border:1px solid rgba(154,127,74,0.25);color:rgba(154,127,74,0.8);font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;padding:16px;cursor:pointer;transition:all .4s"
+                onmouseover="this.style.borderColor='rgba(154,127,74,0.6)';this.style.color='#9a7f4a';this.style.background='rgba(154,127,74,0.04)'"
+                onmouseout="this.style.borderColor='rgba(154,127,74,0.25)';this.style.color='rgba(154,127,74,0.8)';this.style.background='transparent'">
+                Join the waitlist
+            </button>
+        </form>
+        <div id="wlSuccess" style="display:none;text-align:center;padding:32px 0">
+            <p style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.5em;color:#9a7f4a;margin-bottom:16px"><svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></p>
+            <p style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:0.08em;color:#EAEAEA;margin-bottom:12px">You're in</p>
+            <p style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(234,234,234,0.25)">We'll notify you in November.</p>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
