@@ -1166,9 +1166,9 @@ try {
     // Encuadre automático
     const box = new THREE.Box3().setFromObject(mesh);
     const size = box.getSize(new THREE.Vector3());
-    const scale = 0.95 / Math.max(size.x, size.y, size.z);
+    const scale = 0.62 / Math.max(size.x, size.y, size.z);
     group.scale.setScalar(scale);
-    group.position.y = -0.02;
+    group.position.y = -0.04;
 
     if (hint) { hint.style.transition = 'opacity 1s'; hint.style.opacity = '1'; }
   }, undefined, onFail);
