@@ -35,7 +35,7 @@
       "description": "300gsm boxy fit t-shirt. One garment. No logos. No seasons. 50 units, no restock.",
       "offers": {
         "@type": "Offer",
-        "price": "485.00",
+        "price": "160.00",
         "priceCurrency": "EUR",
         "availability": "https://schema.org/PreOrder",
         "availabilityStarts": "2026-10-11",
@@ -257,7 +257,12 @@
     </video>
     <div class="hero-overlay"></div>
     <div class="h-overlay absolute inset-0"></div>
-    <div class="relative z-10 text-center px-6 w-full max-w-6xl">
+    <!-- Camiseta 3D interactiva (drag para rotar) -->
+    <div id="shirt3d" class="absolute inset-0 z-[15]" style="touch-action:pan-y;cursor:grab"></div>
+    <div id="shirtHint" class="absolute bottom-24 left-1/2 -translate-x-1/2 z-[16] pointer-events-none" style="opacity:0">
+        <span class="font-inter text-[9px] tracking-[0.4em] uppercase text-off-white/25">Drag · 360°</span>
+    </div>
+    <div class="relative z-10 text-center px-6 w-full max-w-6xl" style="pointer-events:none">
 
         <!-- Símbolo -->
         <p id="hSym" class="font-oswald text-xs tracking-[0.6em] symbol-gold mb-8 md:mb-10" style="opacity:0"><svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></p>
@@ -445,7 +450,7 @@
                     <div class="flex justify-between items-center py-3.5 border-b border-white/[0.04]"><span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">Cut</span><span class="font-inter text-sm text-off-white/60">Boxy · Oversize</span></div>
                     <div class="flex justify-between items-center py-3.5 border-b border-white/[0.04]"><span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">Color</span><span class="font-inter text-sm text-off-white/60">Absolute black</span></div>
                     <div class="flex justify-between items-start py-3.5 border-b border-white/[0.04]"><span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">Units</span><div class="text-right"><span class="font-inter text-sm text-off-white/60 block">50/50 · No restock</span><span class="font-inter text-[10px] tracking-[0.2em] text-off-white/30 block mt-1">50 M · 50 L · 50 XL</span></div></div>
-                    <div class="flex justify-between items-center py-3.5 border-b border-white/[0.04]"><span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">Price</span><span class="font-oswald text-lg tracking-[0.1em] text-gold">€485.00</span></div>
+                    <div class="flex justify-between items-center py-3.5 border-b border-white/[0.04]"><span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">Price</span><span class="font-oswald text-lg tracking-[0.1em] text-gold">€160.00</span></div>
                 </div>
                 <div class="da mb-8">
                     <span class="font-inter text-[10px] tracking-[0.3em] uppercase text-off-white/25 block mb-4">Size</span>
@@ -484,7 +489,7 @@
                         <p class="font-inter text-[9px] tracking-[0.3em] uppercase text-gold/70 mb-2">Insignia T-Shirt · Drop 001</p>
                         <div class="flex items-end justify-between">
                             <h3 class="font-bebas text-3xl tracking-[0.05em]"><svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></h3>
-                            <span class="font-oswald text-xl tracking-[0.1em] text-gold">€111</span>
+                            <span class="font-oswald text-xl tracking-[0.1em] text-gold">€160</span>
                         </div>
                     </div>
                 </div>
@@ -512,7 +517,7 @@
                         <p class="font-inter text-[9px] tracking-[0.3em] uppercase text-gold/70 mb-2">Insignia T-Shirt · Drop 001</p>
                         <div class="flex items-end justify-between">
                             <h3 class="font-bebas text-3xl tracking-[0.05em]"><svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></h3>
-                            <span class="font-oswald text-xl tracking-[0.1em] text-gold">€111</span>
+                            <span class="font-oswald text-xl tracking-[0.1em] text-gold">€160</span>
                         </div>
                     </div>
                 </div>
@@ -948,7 +953,7 @@ if(drRevEl){
 
         <p style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(234,234,234,0.18);line-height:2;font-weight:300;margin-bottom:40px;letter-spacing:0.08em">50 units. No restock. Access by waitlist only.</p>
 
-        <button onclick="closeDropDate();openWaitlist('Drop 001 · €485')" style="width:100%;background:transparent;border:1px solid rgba(154,127,74,0.25);color:rgba(154,127,74,0.7);font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.45em;text-transform:uppercase;padding:18px;cursor:pointer;transition:all .4s" onmouseover="this.style.borderColor='rgba(154,127,74,0.6)';this.style.color='#9a7f4a';this.style.background='rgba(154,127,74,0.04)'" onmouseout="this.style.borderColor='rgba(154,127,74,0.25)';this.style.color='rgba(154,127,74,0.7)';this.style.background='transparent'">Join the waitlist</button>
+        <button onclick="closeDropDate();openWaitlist('Drop 001 · €160')" style="width:100%;background:transparent;border:1px solid rgba(154,127,74,0.25);color:rgba(154,127,74,0.7);font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.45em;text-transform:uppercase;padding:18px;cursor:pointer;transition:all .4s" onmouseover="this.style.borderColor='rgba(154,127,74,0.6)';this.style.color='#9a7f4a';this.style.background='rgba(154,127,74,0.04)'" onmouseout="this.style.borderColor='rgba(154,127,74,0.25)';this.style.color='rgba(154,127,74,0.7)';this.style.background='transparent'">Join the waitlist</button>
     </div>
 </div>
 
@@ -1090,5 +1095,110 @@ if(drRevEl){
     </div>
 </div>
 
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+// ===== CAMISETA 3D — Drop 001 (drag para rotar 360°) =====
+// Modelo base: pmndrs examples (MIT). Material y decal propios GG Silence.
+try {
+  const THREE = await import('three');
+  const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
+  const { DecalGeometry } = await import('three/addons/geometries/DecalGeometry.js');
+
+  const holder = document.getElementById('shirt3d');
+  const hint = document.getElementById('shirtHint');
+
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(holder.clientWidth, holder.clientHeight);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  holder.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(25, holder.clientWidth / holder.clientHeight, 0.1, 20);
+  camera.position.set(0, 0, 2.5);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+  const key = new THREE.DirectionalLight(0xffffff, 1.4); key.position.set(2, 2.5, 3); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xc4a96a, 0.7); rim.position.set(-2.5, 1, -2.5); scene.add(rim);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.35); fill.position.set(-1.5, -1, 2); scene.add(fill);
+
+  // Textura del logo (círculo + dos barras) dibujada en canvas
+  const c = document.createElement('canvas'); c.width = c.height = 512;
+  const x = c.getContext('2d');
+  x.fillStyle = '#ebe7df';
+  const s = 400 / 30, ox = 56, oy = (512 - 18 * s) / 2;
+  x.beginPath(); x.arc(ox + 3 * s, oy + 9 * s, 2.6 * s, 0, Math.PI * 2); x.fill();
+  const rr = (rx, ry, rw, rh, r) => { x.beginPath(); x.roundRect(ox + rx * s, oy + ry * s, rw * s, rh * s, r * s); x.fill(); };
+  rr(9.5, 2.5, 3.8, 13, 0.5); rr(17.5, 2.5, 3.8, 13, 0.5);
+  const logoTex = new THREE.CanvasTexture(c);
+  logoTex.colorSpace = THREE.SRGBColorSpace;
+  logoTex.anisotropy = 8;
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  const SHIRT_CDN = 'https://cdn.jsdelivr.net/gh/pmndrs/examples@main/demos/t-shirt-configurator/public/shirt_baked_collapsed.glb';
+  const loadShirt = (url, onFail) => new GLTFLoader().load(url, (gltf) => {
+    let mesh = null;
+    gltf.scene.traverse(o => { if (o.isMesh && !mesh) mesh = o; });
+    if (!mesh) return;
+    mesh.geometry.center();
+    mesh.material = new THREE.MeshStandardMaterial({ color: 0x161616, roughness: 0.82, metalness: 0.05 });
+    mesh.position.set(0, 0, 0); mesh.rotation.set(0, 0, 0); mesh.scale.set(1, 1, 1);
+    group.add(mesh);
+
+    // Decal del logo en el pecho
+    mesh.updateMatrixWorld(true);
+    const decalGeo = new DecalGeometry(mesh, new THREE.Vector3(0, 0.06, 0.12), new THREE.Euler(0, 0, 0), new THREE.Vector3(0.14, 0.14, 0.1));
+    const decal = new THREE.Mesh(decalGeo, new THREE.MeshStandardMaterial({
+      map: logoTex, transparent: true, roughness: 0.7,
+      depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4
+    }));
+    group.add(decal);
+
+    // Encuadre automático
+    const box = new THREE.Box3().setFromObject(mesh);
+    const size = box.getSize(new THREE.Vector3());
+    const scale = 0.95 / Math.max(size.x, size.y, size.z);
+    group.scale.setScalar(scale);
+    group.position.y = -0.02;
+
+    if (hint) { hint.style.transition = 'opacity 1s'; hint.style.opacity = '1'; }
+  }, undefined, onFail);
+
+  loadShirt('shirt.glb', () => loadShirt(SHIRT_CDN, (e) => { console.warn('shirt3d:', e); holder.remove(); }));
+
+  // Rotación: drag horizontal + inercia + giro lento en reposo
+  let dragging = false, lastX = 0, vel = 0;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  holder.addEventListener('pointerdown', e => { dragging = true; lastX = e.clientX; vel = 0; holder.style.cursor = 'grabbing'; });
+  window.addEventListener('pointermove', e => { if (!dragging) return; const dx = e.clientX - lastX; lastX = e.clientX; vel = dx * 0.006; group.rotation.y += vel; });
+  window.addEventListener('pointerup', () => { dragging = false; holder.style.cursor = 'grab'; });
+
+  let visible = true;
+  new IntersectionObserver(en => { visible = en[0].isIntersecting; }).observe(holder);
+
+  (function loop() {
+    requestAnimationFrame(loop);
+    if (!visible) return;
+    if (!dragging) {
+      vel *= 0.95;
+      group.rotation.y += vel + (reduced ? 0 : 0.0035);
+    }
+    renderer.render(scene, camera);
+  })();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = holder.clientWidth / holder.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(holder.clientWidth, holder.clientHeight);
+  });
+} catch (e) {
+  console.warn('shirt3d desactivado:', e);
+  const h = document.getElementById('shirt3d'); if (h) h.remove();
+}
+</script>
 </body>
 </html>
