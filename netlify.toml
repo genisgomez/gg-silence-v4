@@ -1,0 +1,10 @@
+# Headers de seguridad — GG Silence v4
+# CSP pendiente: requiere refactor de estilos/scripts inline (ver AUDIT.md G1)
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
