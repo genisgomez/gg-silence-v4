@@ -9,6 +9,7 @@
     <meta name="theme-color" content="#050505">
     <meta name="author" content="GG SILENCE">
     <link rel="canonical" href="https://gg-silence-v4.netlify.app/">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -43,6 +44,16 @@
       },
       "image": "https://gg-silence-v4.netlify.app/modelo-1.jpeg",
       "url": "https://gg-silence-v4.netlify.app/"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "GG SILENCE",
+      "url": "https://gg-silence-v4.netlify.app/",
+      "logo": "https://gg-silence-v4.netlify.app/favicon.svg",
+      "address": { "@type": "PostalAddress", "addressLocality": "Barcelona", "addressCountry": "ES" }
     }
     </script>
 
@@ -252,7 +263,7 @@
 
 <!-- ===== HERO ===== -->
 <section id="hero" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
-    <video autoplay muted loop playsinline preload="auto" class="hero-video">
+    <video autoplay muted loop playsinline preload="auto" poster="poster.jpg" class="hero-video" aria-hidden="true">
         <source src="bucle.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
