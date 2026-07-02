@@ -599,6 +599,8 @@
             <button class="hv bg-off-white text-black font-oswald text-[11px] tracking-[0.3em] uppercase px-8 py-4 hover:bg-white transition-colors flex-shrink-0" onclick="handleSub()">Join</button>
         </div>
         <p class="ca font-inter text-[9px] text-off-white/10 mt-4 tracking-wider">No noise. No spam. Only SILENCE.</p>
+        <!-- Form estático para que Netlify Forms lo detecte en build; el envío real va por fetch en handleSub() -->
+        <form name="newsletter" data-netlify="true" hidden aria-hidden="true"><input type="email" name="email"></form>
     </div>
     <div class="max-w-7xl mx-auto mt-32 md:mt-48 px-6 md:px-12"><div class="divl w-full h-px bg-gradient-to-r from-transparent via-off-white/[0.08] to-transparent"></div></div>
 </section>
@@ -634,7 +636,7 @@ function toggleCart(){const s=document.getElementById('cartSB'),o=document.getEl
 function toggleMM(){const m=document.getElementById('mm'),o=m.classList.contains('opacity-100');m.classList.toggle('opacity-100',!o);m.classList.toggle('pointer-events-auto',!o);m.classList.toggle('opacity-0',o);m.classList.toggle('pointer-events-none',o);document.body.style.overflow=o?'':'hidden'}
 function selS(b){document.querySelectorAll('.sb').forEach(s=>{s.style.borderColor='rgba(234,234,234,0.08)';s.style.color='rgba(234,234,234,0.3)'});b.style.borderColor='rgba(234,234,234,0.4)';b.style.color='#EAEAEA'}
 const emailRx=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-function handleSub(){const i=document.getElementById('eIn');if(emailRx.test(i.value.trim())){i.value='';i.placeholder='Welcome to the SILENCE.';setTimeout(()=>{i.placeholder='Your email address'},3000)}else{i.style.borderColor='rgba(234,234,234,0.35)';i.placeholder='Enter a valid email';setTimeout(()=>{i.style.borderColor='rgba(234,234,234,0.08)';i.placeholder='Your email address'},2000)}}
+function handleSub(){const i=document.getElementById('eIn');if(emailRx.test(i.value.trim())){fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({'form-name':'newsletter',email:i.value.trim()}).toString()}).catch(()=>{});i.value='';i.placeholder='Welcome to the SILENCE.';setTimeout(()=>{i.placeholder='Your email address'},3000)}else{i.style.borderColor='rgba(234,234,234,0.35)';i.placeholder='Enter a valid email';setTimeout(()=>{i.style.borderColor='rgba(234,234,234,0.08)';i.placeholder='Your email address'},2000)}}
 document.getElementById('eIn').addEventListener('keypress',e=>{if(e.key==='Enter')handleSub()});
 
 // ===== WAITLIST MODAL =====
