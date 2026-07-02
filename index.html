@@ -1139,7 +1139,12 @@ try {
   const group = new THREE.Group();
   scene.add(group);
 
-  const SHIRT_CDN = 'https://cdn.jsdelivr.net/gh/pmndrs/examples@main/demos/t-shirt-configurator/public/shirt_baked_collapsed.glb';
+  const SHIRT_URLS = [
+    'shirt.glb',
+    'https://cdn.jsdelivr.net/gh/pmndrs/examples@main/demos/t-shirt-configurator/public/shirt_baked_collapsed.glb',
+    'https://cdn.jsdelivr.net/gh/pmndrs/examples@main/demos/t-shirt-configurator/public/shirt_baked.glb',
+    'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/models/t-shirt/model.gltf'
+  ];
   const loadShirt = (url, onFail) => new GLTFLoader().load(url, (gltf) => {
     let mesh = null;
     gltf.scene.traverse(o => { if (o.isMesh && !mesh) mesh = o; });
@@ -1151,7 +1156,7 @@ try {
 
     // Decal del logo en el pecho
     mesh.updateMatrixWorld(true);
-    const decalGeo = new DecalGeometry(mesh, new THREE.Vector3(0, 0.06, 0.12), new THREE.Euler(0, 0, 0), new THREE.Vector3(0.14, 0.14, 0.1));
+    const decalGeo = new DecalGeometry(mesh, new THREE.Vector3(0, 0.04, 0.15), new THREE.Euler(0, 0, 0), new THREE.Vector3(0.15, 0.15, 0.1));
     const decal = new THREE.Mesh(decalGeo, new THREE.MeshStandardMaterial({
       map: logoTex, transparent: true, roughness: 0.7,
       depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4
@@ -1168,7 +1173,12 @@ try {
     if (hint) { hint.style.transition = 'opacity 1s'; hint.style.opacity = '1'; }
   }, undefined, onFail);
 
-  loadShirt('shirt.glb', () => loadShirt(SHIRT_CDN, (e) => { console.warn('shirt3d:', e); holder.remove(); }));
+  const tryLoad = (i) => {
+    if (i >= SHIRT_URLS.length) { console.warn('shirt3d: ningún modelo disponible'); holder.remove(); return; }
+    console.log('shirt3d: probando', SHIRT_URLS[i]);
+    loadShirt(SHIRT_URLS[i], () => tryLoad(i + 1));
+  };
+  tryLoad(0);
 
   // Rotación: drag horizontal + inercia + giro lento en reposo
   let dragging = false, lastX = 0, vel = 0;
