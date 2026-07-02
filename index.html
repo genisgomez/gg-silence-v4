@@ -751,7 +751,6 @@ setTimeout(runEntry,2500);
 // ===== GSAP SCROLL ANIMATIONS =====
 gsap.registerPlugin(ScrollTrigger);
 
-gsap.to('#hero img',{yPercent:15,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
 ScrollTrigger.create({trigger:'#hero',start:'top top',end:'15% top',onLeave:()=>gsap.to('#sInd',{opacity:0,duration:.4}),onEnterBack:()=>gsap.to('#sInd',{opacity:1,duration:.4})});
 
 function animS(sel,props){
@@ -760,10 +759,7 @@ function animS(sel,props){
     });
 }
 animS('.ma');animS('.da',{opacity:0,y:50});animS('.pa',{opacity:0,y:40});
-function openProduct(n){document.getElementById('drop').scrollIntoView({behavior:'smooth'})}
 animS('.ja',{opacity:0,x:40,y:0});animS('.la');animS('.ca',{opacity:0,y:30});
-
-gsap.to('#manifesto .ma img',{yPercent:-8,ease:'none',scrollTrigger:{trigger:'#manifesto',start:'top bottom',end:'bottom top',scrub:true}});
 
 gsap.utils.toArray('.divl').forEach(l=>{gsap.to(l,{scaleX:1,duration:1.5,ease:'power2.inOut',scrollTrigger:{trigger:l,start:'top 92%',toggleActions:'play none none none'}})});
 
