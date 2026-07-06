@@ -1,6 +1,9 @@
 # Headers de seguridad — GG Silence v4
 # CSP pendiente: requiere refactor de estilos/scripts inline (ver AUDIT.md G1)
 
+[build]
+  functions = "netlify/functions"
+
 [[headers]]
   for = "/*"
   [headers.values]

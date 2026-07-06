@@ -19,6 +19,9 @@
     "url": "https://github.com/genisgomez/gg-silence-v4/issues"
   },
   "homepage": "https://github.com/genisgomez/gg-silence-v4#readme",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  },
   "devDependencies": {
     "tailwindcss": "^3.4.19"
   }
