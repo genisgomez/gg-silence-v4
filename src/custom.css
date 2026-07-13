@@ -1,0 +1,154 @@
+/* ===== GG SILENCE — Custom Styles ===== */
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:rgba(100,160,255,0.2);color:#EAEAEA}
+body{background:#050505;color:#EAEAEA;font-family:'Inter',sans-serif;cursor:none;overflow-x:hidden}
+
+/* PRELOADER */
+#preloader{position:fixed;inset:0;z-index:10000;background:#050505;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.pl-sym{font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:0.6em;color:#EAEAEA;opacity:0}
+.pl-gg{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,15vw,140px);letter-spacing:0.15em;color:#EAEAEA;opacity:0;filter:blur(6px)}
+
+/* VIGNETTE */
+.vignette{position:fixed;inset:0;z-index:51;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,0.65) 100%);opacity:0}
+
+/* CANVAS */
+#dustCanvas{position:fixed;inset:0;z-index:53;pointer-events:none;opacity:0}
+
+/* CURSOR */
+a,button,input{cursor:none}
+.cur-dot{width:5px;height:5px;background:#EAEAEA;border-radius:50%;position:fixed;pointer-events:none;z-index:99999;mix-blend-mode:difference}
+.cur-ring{width:36px;height:36px;border:1px solid rgba(234,234,234,0.35);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;mix-blend-mode:difference;transition:width .3s,height .3s,border-color .3s}
+.cur-ring.hov{width:60px;height:60px;border-color:rgba(234,234,234,0.7)}
+@media(max-width:768px){body,a,button,input{cursor:auto}.cur-dot,.cur-ring{display:none}}
+
+/* HERO */
+.h-overlay{background:linear-gradient(180deg,rgba(5,5,5,0.5) 0%,rgba(5,5,5,0.12) 30%,rgba(5,5,5,0.1) 50%,rgba(5,5,5,0.5) 75%,rgba(5,5,5,0.98) 100%)}
+@keyframes kb{0%{transform:scale(1.08) translate(0,0)}50%{transform:scale(1.14) translate(-0.8%,-0.8%)}100%{transform:scale(1.1) translate(0.4%,-0.4%)}}
+.ken-burns{animation:kb 25s ease-in-out infinite alternate}
+
+/* SCROLL IND */
+@keyframes sp{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(10px);opacity:1}}
+.scroll-ind{animation:sp 2.5s ease-in-out infinite}
+
+/* GOLD */
+.gold{color:#9a7f4a}
+.symbol-gold{color:#9a7f4a;letter-spacing:0.2em}
+
+/* ACCENT LINE */
+.acc-line{width:0;height:1px;background:rgba(154,127,74,0.4);transform-origin:center}
+
+/* PRODUCT HOVER */
+.pc .po{opacity:0;transition:opacity .6s}.pc:hover .po{opacity:1}
+.pc .pi{transition:transform .8s cubic-bezier(.25,.46,.45,.94),filter .6s}.pc:hover .pi{transform:scale(1.06);filter:brightness(0.25)}
+
+/* TERMINAL */
+@keyframes bl{0%,50%{opacity:1}51%,100%{opacity:0}}.tc{animation:bl 1s infinite}
+
+/* GRAIN */
+body::after{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.35}
+
+/* JOURNAL */
+.js::-webkit-scrollbar{display:none}.js{-ms-overflow-style:none;scrollbar-width:none}
+
+/* IMAGES */
+img{opacity:0;transition:opacity 1s}img.ld{opacity:1}
+
+/* DIVIDERS */
+.divl{transform:scaleX(0);transform-origin:center}
+
+/* LOGO MARK */
+.lm{display:inline-block;vertical-align:-0.08em;height:0.9em;width:1.55em}
+
+/* MANIFESTO MODAL */
+.mf{opacity:0;transform:translateY(22px);transition:opacity 1.1s ease,transform 1s ease}
+.mf.vis{opacity:1;transform:none}
+.mf-div{width:44px;height:1px;background:rgba(154,127,74,0.16);margin:56px 0}
+#manifestoModal::-webkit-scrollbar{display:none}
+#manifestoModal{-ms-overflow-style:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+
+/* JOURNEY */
+.city-panel{margin:0;padding:0;display:block}
+.city-wrap{position:relative;overflow:hidden;height:100vh;min-height:600px}
+.city-photo{width:100%;height:100%;object-fit:cover;will-change:transform}
+.city-body{opacity:0}
+#jNav{transition:opacity .9s ease}
+.ji{opacity:0}
+
+/* CITY PHOTO POSITIONS — mobile */
+.city-panel[data-idx="0"] .city-photo{object-position:50% 75%}
+.city-panel[data-idx="1"] .city-photo{object-position:42% 72%}
+.city-panel[data-idx="2"] .city-photo{object-position:50% 76%}
+.city-panel[data-idx="3"] .city-photo{object-position:62% 76%}
+.city-panel[data-idx="4"] .city-photo{object-position:center 70%}
+
+/* CITY PHOTO POSITIONS — desktop fine-tuned */
+@media(min-width:1024px){
+  .city-panel[data-idx="0"] .city-photo{object-position:50% 60%}
+  .city-panel[data-idx="1"] .city-photo{object-position:42% 78%}
+  .city-panel[data-idx="2"] .city-photo{object-position:50% 80%}
+  .city-panel[data-idx="3"] .city-photo{object-position:65% 82%}
+  .city-panel[data-idx="4"] .city-photo{object-position:center 70%}
+}
+
+/* HERO VIDEO */
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;opacity:0.6}
+.hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.45);z-index:1}
+
+/* CONCRETE TEXTURE */
+.concrete-bg{
+    position:relative;
+    background-color:#1a1a1a;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='concrete'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23concrete)' opacity='0.15'/%3E%3C/svg%3E");
+    background-size:400px 400px;
+}
+.concrete-bg-subtle{
+    position:relative;
+    background-color:#141414;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='concrete'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23concrete)' opacity='0.06'/%3E%3C/svg%3E");
+    background-size:400px 400px;
+}
+
+/* ACCESSIBILITY */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+:focus-visible{outline:1px solid rgba(154,127,74,0.6);outline-offset:3px}
+button:focus-visible,input:focus-visible{outline:1px solid rgba(154,127,74,0.6);outline-offset:2px}
+
+/* RESPECT REDUCED MOTION */
+@media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
+    .ken-burns{animation:none}
+    .mf{transition:none}
+}
+
+/* ===== FASE 3: Stripe Checkout Button ===== */
+.checkout-btn{position:relative;overflow:hidden}
+.checkout-btn::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(154,127,74,0.15);border-radius:50%;transform:translate(-50%,-50%);transition:width .6s ease,height .6s ease}
+.checkout-btn:hover::after{width:300px;height:300px}
+
+/* ===== FASE 3: Sticky Mobile CTA ===== */
+.sticky-cta{position:fixed;bottom:0;left:0;width:100%;z-index:90;padding:12px 16px;background:rgba(5,5,5,0.95);backdrop-filter:blur(12px);border-top:1px solid rgba(154,127,74,0.15);transform:translateY(100%);transition:transform .4s ease}
+.sticky-cta.visible{transform:translateY(0)}
+.sticky-cta button{width:100%;background:#9a7f4a;color:#050505;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.4em;text-transform:uppercase;padding:16px;border:none;cursor:pointer;transition:background .3s}
+.sticky-cta button:hover{background:#c4a55a}
+@media(min-width:769px){.sticky-cta{display:none}}
+
+/* ===== FASE 4: Mobile Menu Stagger ===== */
+#mm a{opacity:0;transform:translateY(20px)}
+#mm.open a{opacity:1;transform:translateY(0);transition:opacity .5s ease,transform .5s ease}
+#mm.open a:nth-child(2){transition-delay:.08s}
+#mm.open a:nth-child(3){transition-delay:.16s}
+#mm.open a:nth-child(4){transition-delay:.24s}
+#mm.open a:nth-child(5){transition-delay:.32s}
+#mm.open a:nth-child(6){transition-delay:.4s}
+
+/* ===== FASE 4: Journal Scroll Fade ===== */
+.js-fade{mask-image:linear-gradient(to right,black 85%,transparent 100%);-webkit-mask-image:linear-gradient(to right,black 85%,transparent 100%)}
+
+/* ===== FASE 7: Size Button Glow ===== */
+.sb{transition:all .3s ease}
+.sb:hover{box-shadow:0 0 12px rgba(154,127,74,0.15)}
+
+/* ===== FASE 7: Newsletter Focus ===== */
+#eIn:focus{border-color:#9a7f4a !important;box-shadow:0 0 0 1px rgba(154,127,74,0.2)}
