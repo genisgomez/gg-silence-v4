@@ -146,10 +146,14 @@
 
 <!-- ===== HERO ===== -->
 <section id="hero" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
-    <video autoplay muted loop playsinline preload="metadata" poster="poster.jpg" class="hero-video" aria-hidden="true">
+    <video id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="poster.jpg" class="hero-video" aria-hidden="true">
         <source src="bucle.webm" type="video/webm">
         <source src="bucle.mp4" type="video/mp4">
     </video>
+    <!-- Mobile play button (shown when autoplay blocked) -->
+    <button id="heroPlay" class="absolute z-10 w-16 h-16 rounded-full border border-white/20 bg-black/40 backdrop-blur-sm flex items-center justify-center opacity-0 transition-opacity duration-500" onclick="playHero()" aria-label="Play video" style="display:none">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+    </button>
     <div class="hero-overlay"></div>
     <div class="h-overlay absolute inset-0"></div>
     <div class="relative z-10 text-center px-6 w-full max-w-6xl">
