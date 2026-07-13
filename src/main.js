@@ -96,7 +96,7 @@ function submitWaitlist(e){
 
 // ===== STRIPE CHECKOUT =====
 // TODO: Replace with your actual Stripe Payment Link URL
-const STRIPE_URL='https://buy.stripe.com/YOUR_LINK_HERE';
+const STRIPE_URL='https://buy.stripe.com/test_cNibIV9BXgjC6OB6B828800';
 function checkout(){
     window.open(STRIPE_URL,'_blank','noopener');
 }
