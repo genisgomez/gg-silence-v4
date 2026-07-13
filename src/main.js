@@ -3,25 +3,20 @@
 // ===== FORCE ALL IMAGES TO SHOW =====
 setTimeout(()=>{document.querySelectorAll('img').forEach(i=>i.classList.add('ld'))},3000);
 
-// ===== MOBILE VIDEO FALLBACK =====
+// ===== MOBILE VIDEO AUTOPLAY =====
 (function(){
     const vid=document.getElementById('heroVideo');
-    const btn=document.getElementById('heroPlay');
-    if(!vid||!btn)return;
-    // Try autoplay — if it fails, show play button
-    const p=vid.play();
-    if(p!==undefined){
-        p.catch(()=>{
-            btn.style.display='flex';
-            requestAnimationFrame(()=>btn.style.opacity='1');
-        });
-    }
+    if(!vid)return;
+    function tryPlay(){vid.play().catch(()=>{})}
+    tryPlay();
+    // Also try on first user interaction (helps iOS)
+    ['touchstart','touchend','scroll','click'].forEach(evt=>{
+        document.addEventListener(evt,function h(){tryPlay();document.removeEventListener(evt,h)},{passive:true,once:true});
+    });
+    // Retry every 500ms for first 5s (covers slow network loads)
+    let attempts=0;
+    const retry=setInterval(()=>{if(vid.paused&&attempts<10){tryPlay();attempts++}else clearInterval(retry)},500);
 })();
-function playHero(){
-    const vid=document.getElementById('heroVideo');
-    const btn=document.getElementById('heroPlay');
-    if(vid){vid.play();btn.style.opacity='0';setTimeout(()=>btn.style.display='none',500)}
-}
 
 // ===== CURSOR =====
 const cD=document.getElementById('cDot'),cR=document.getElementById('cRing');
