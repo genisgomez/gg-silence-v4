@@ -395,8 +395,15 @@ if(drRevEl){
   cards.forEach(card=>{
     const imgs=card.querySelectorAll('.gallery-img');
     if(imgs.length<2)return;
-    const dots=card.querySelectorAll('[class*="dot-"]');
-    if(!dots.length)return;
+    const d0=card.querySelector('[data-dot="0"]');
+    const d1=card.querySelector('[data-dot="1"]');
+    if(!d0||!d1)return;
+    function setGallery(idx){
+      imgs[0].style.opacity=idx===0?'0.88':'0';
+      imgs[1].style.opacity=idx===1?'0.88':'0';
+      d0.style.background=idx===0?'rgba(154,127,74,0.6)':'rgba(234,234,234,0.2)';
+      d1.style.background=idx===1?'rgba(154,127,74,0.6)':'rgba(234,234,234,0.2)';
+    }
     let current=0;
     let startX=0;
     card.addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});
@@ -404,20 +411,14 @@ if(drRevEl){
       const dx=e.changedTouches[0].clientX-startX;
       if(Math.abs(dx)<40)return;
       current=dx<0?1:0;
-      imgs[0].style.opacity=current===0?'0.88':'0';
-      imgs[1].style.opacity=current===1?'0.88':'0';
-      dots[0].className=current===0?'w-1.5 h-1.5 rounded-full dot-active':'w-1.5 h-1.5 rounded-full dot-inactive';
-      dots[1].className=current===1?'w-1.5 h-1.5 rounded-full dot-active':'w-1.5 h-1.5 rounded-full dot-inactive';
+      setGallery(current);
     },{passive:true});
     // Tap dots to switch
-    dots.forEach((dot,i)=>{
+    [d0,d1].forEach((dot,i)=>{
       dot.addEventListener('click',e=>{
         e.stopPropagation();
         current=i;
-        imgs[0].style.opacity=current===0?'0.88':'0';
-        imgs[1].style.opacity=current===1?'0.88':'0';
-        dots[0].className=current===0?'w-1.5 h-1.5 rounded-full dot-active':'w-1.5 h-1.5 rounded-full dot-inactive';
-        dots[1].className=current===1?'w-1.5 h-1.5 rounded-full dot-active':'w-1.5 h-1.5 rounded-full dot-inactive';
+        setGallery(current);
       });
     });
   });
