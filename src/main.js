@@ -57,7 +57,7 @@ function openWaitlist(product){
     document.getElementById('wlForm').style.display='';
     document.getElementById('wlSuccess').style.display='none';
     document.getElementById('wlSize').value='';
-    ['M','L','XL'].forEach(t=>{
+    ['M','L'].forEach(t=>{
         const b=document.getElementById('sz-'+t);
         if(b){b.setAttribute('aria-pressed','false');b.style.borderColor='rgba(234,234,234,0.07)';b.style.color='rgba(234,234,234,0.3)';b.style.background='transparent';}
     });
@@ -74,7 +74,7 @@ function closeWaitlist(){
     if(_wlPrev)_wlPrev.focus();
 }
 function selectSize(s){
-    ['M','L','XL'].forEach(t=>{
+    ['M','L'].forEach(t=>{
         const b=document.getElementById('sz-'+t);
         const active=t===s;
         b.setAttribute('aria-pressed',active?'true':'false');
@@ -87,11 +87,11 @@ function selectSize(s){
 function submitWaitlist(e){
     e.preventDefault();
     if(!document.getElementById('wlSize').value){
-        ['M','L','XL'].forEach(t=>{
+        ['M','L'].forEach(t=>{
             const b=document.getElementById('sz-'+t);
             b.style.borderColor='rgba(200,80,80,0.4)';
         });
-        setTimeout(()=>['M','L','XL'].forEach(t=>{
+        setTimeout(()=>['M','L'].forEach(t=>{
             if(!document.getElementById('wlSize').value)document.getElementById('sz-'+t).style.borderColor='rgba(234,234,234,0.07)';
         }),1200);
         return;
