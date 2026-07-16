@@ -357,7 +357,7 @@
                         <button class="sb hv font-oswald text-xs tracking-[0.2em] w-12 h-12 border border-white/[0.08] text-off-white/30 hover:border-off-white/40 hover:text-off-white transition-all" onclick="selS(this)">XL</button>
                     </div>
                 </div>
-                <button class="da hv w-full bg-gold text-black font-oswald text-[11px] tracking-[0.4em] uppercase py-5 hover:bg-gold-bright transition-colors checkout-btn" onclick="checkout()">Access the Drop</button>
+                <button class="da hv w-full bg-gold text-black font-oswald text-[11px] tracking-[0.4em] uppercase py-5 hover:bg-gold-bright transition-colors checkout-btn" onclick="checkout('Insignia T-Shirt')">Access the Drop</button>
                 <p class="da font-inter text-[9px] text-off-white/15 tracking-[0.3em] mt-3 text-center">Drop 001 · November 2026 · 50 units · Barcelona</p>
             </div>
         </div>
@@ -375,7 +375,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
 
             <!-- Producto 01 — Insignia T-Shirt con mini-galería -->
-            <div class="pa group hv cursor-pointer" onclick="checkout()">
+            <div class="pa group hv cursor-pointer" onclick="checkout('Insignia T-Shirt')">
                 <div class="aspect-[3/4] mb-6" style="position:relative;overflow:hidden;background:transparent">
                     <!-- Galería: hover alterna en desktop, dots en móvil -->
                     <img src="modelo-1.jpeg" alt="GG Silence — Insignia T-Shirt, model wearing Drop 001" class="gallery-img w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" decoding="async" width="1122" height="1402" style="opacity:0.88;mix-blend-mode:multiply;filter:grayscale(0.8);position:absolute;inset:0;transition:opacity .6s ease">
@@ -405,12 +405,12 @@
                     <div class="flex justify-between items-center py-2">
                         <span class="font-inter text-[9px] tracking-[0.25em] uppercase text-off-white/15">November 2026 · 50 units</span>
                     </div>
-                    <button onclick="event.stopPropagation();checkout()" class="w-full border border-off-white/10 text-off-white/40 font-oswald text-[10px] tracking-[0.4em] uppercase py-3 hover:border-off-white/30 hover:text-off-white/70 transition-all duration-500">Access</button>
+                    <button onclick="event.stopPropagation();checkout('Insignia T-Shirt')" class="w-full border border-off-white/10 text-off-white/40 font-oswald text-[10px] tracking-[0.4em] uppercase py-3 hover:border-off-white/30 hover:text-off-white/70 transition-all duration-500">Access</button>
                 </div>
             </div>
 
             <!-- Producto 02 — Insignia Cap -->
-            <div class="pa group hv cursor-pointer" onclick="checkout()">
+            <div class="pa group hv cursor-pointer" onclick="checkout('Insignia Cap')">
                 <div class="aspect-[3/4] mb-6" style="position:relative;overflow:hidden;background:transparent">
                     <img src="gorra.jpeg" alt="GG Silence — Insignia Cap, Drop 001" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" decoding="async" width="1122" height="1402" style="opacity:0.88;mix-blend-mode:multiply;filter:grayscale(0.8)">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
@@ -433,7 +433,7 @@
                     <div class="flex justify-between items-center py-2">
                         <span class="font-inter text-[9px] tracking-[0.25em] uppercase text-off-white/15">Limited · No restock</span>
                     </div>
-                    <button onclick="event.stopPropagation();checkout()" class="w-full border border-off-white/10 text-off-white/40 font-oswald text-[10px] tracking-[0.4em] uppercase py-3 hover:border-off-white/30 hover:text-off-white/70 transition-all duration-500">Access</button>
+                    <button onclick="event.stopPropagation();checkout('Insignia Cap')" class="w-full border border-off-white/10 text-off-white/40 font-oswald text-[10px] tracking-[0.4em] uppercase py-3 hover:border-off-white/30 hover:text-off-white/70 transition-all duration-500">Access</button>
                 </div>
             </div>
 
@@ -639,6 +639,9 @@
         <h2 style="font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:0.08em;color:#EAEAEA;margin-bottom:8px">Waitlist</h2>
         <p id="wlProduct" style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(234,234,234,0.25);margin-bottom:6px">November 2026</p>
         <p style="font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(154,127,74,0.6);margin-bottom:10px">The waitlist enters 24 hours early</p>
+        <div style="background:rgba(154,127,74,0.06);border:1px solid rgba(154,127,74,0.15);padding:12px 16px;margin-bottom:24px;text-align:center">
+            <p style="font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(154,127,74,0.8);margin:0">Drops November 2026 — Join the waitlist for early access</p>
+        </div>
         <div style="display:flex;gap:16px;margin-bottom:32px">
             <span style="font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:0.4em;color:rgba(154,127,74,0.45);text-transform:uppercase">20 M</span>
             <span style="color:rgba(234,234,234,0.1);font-size:9px">·</span>
@@ -686,7 +689,7 @@
 
 <!-- STICKY MOBILE CTA -->
 <div id="stickyCta" class="sticky-cta">
-    <button onclick="checkout()">Join the Drop — €55</button>
+    <button onclick="checkout('Insignia T-Shirt')">Join the Drop — €55</button>
 </div>
 
 </body>
