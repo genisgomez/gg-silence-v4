@@ -374,13 +374,20 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
 
-            <!-- Producto 01 -->
+            <!-- Producto 01 — Insignia T-Shirt con mini-galería -->
             <div class="pa group hv cursor-pointer" onclick="checkout()">
                 <div class="aspect-[3/4] mb-6" style="position:relative;overflow:hidden;background:transparent">
-                    <img src="modelo-1.jpeg" alt="GG Silence — Insignia T-Shirt, model wearing Drop 001" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" decoding="async" width="1122" height="1402" style="opacity:0.88;mix-blend-mode:multiply;filter:grayscale(0.8)">
+                    <!-- Galería: hover alterna en desktop, dots en móvil -->
+                    <img src="modelo-1.jpeg" alt="GG Silence — Insignia T-Shirt, model wearing Drop 001" class="gallery-img w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" decoding="async" width="1122" height="1402" style="opacity:0.88;mix-blend-mode:multiply;filter:grayscale(0.8);position:absolute;inset:0;transition:opacity .6s ease">
+                    <img src="modelo-2.jpeg" alt="GG Silence — two folded black Insignia T-Shirts, Drop 001" class="gallery-img w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" decoding="async" width="1122" height="1402" style="opacity:0;mix-blend-mode:multiply;filter:grayscale(0.8);position:absolute;inset:0;transition:opacity .6s ease">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
                     <div class="absolute top-5 left-5">
                         <span class="font-mono text-[9px] text-gold/60 tracking-[0.3em]">001</span>
+                    </div>
+                    <!-- Dots para móvil -->
+                    <div class="absolute bottom-20 left-0 right-0 flex justify-center gap-2 md:hidden">
+                        <span class="w-1.5 h-1.5 rounded-full bg-gold/60 dot-active"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-off-white/20 dot-inactive"></span>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
                         <p class="font-inter text-[9px] tracking-[0.3em] uppercase text-gold/70 mb-2">Insignia T-Shirt · Drop 001</p>
@@ -402,29 +409,29 @@
                 </div>
             </div>
 
-            <!-- Producto 02 -->
+            <!-- Producto 02 — Insignia Cap -->
             <div class="pa group hv cursor-pointer" onclick="checkout()">
                 <div class="aspect-[3/4] mb-6" style="position:relative;overflow:hidden;background:transparent">
-                    <img src="modelo-2.jpeg" alt="GG Silence — Insignia T-Shirt, Drop 001 second view" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" decoding="async" width="1122" height="1402" style="opacity:0.88;mix-blend-mode:multiply;filter:grayscale(0.8)">
+                    <img src="gorra.jpeg" alt="GG Silence — Insignia Cap, Drop 001" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" decoding="async" width="1122" height="1402" style="opacity:0.88;mix-blend-mode:multiply;filter:grayscale(0.8)">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
                     <div class="absolute top-5 left-5">
                         <span class="font-mono text-[9px] text-gold/60 tracking-[0.3em]">002</span>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                        <p class="font-inter text-[9px] tracking-[0.3em] uppercase text-gold/70 mb-2">Insignia T-Shirt · Drop 001</p>
+                        <p class="font-inter text-[9px] tracking-[0.3em] uppercase text-gold/70 mb-2">Insignia Cap · Drop 001</p>
                         <div class="flex items-end justify-between">
                             <h3 class="font-bebas text-3xl tracking-[0.05em]"><svg class="lm" fill="currentColor" aria-hidden="true"><use href="#lm"/></svg></h3>
-                            <span class="font-oswald text-xl tracking-[0.1em] text-gold">€55</span>
+                            <span class="font-oswald text-xl tracking-[0.1em] text-gold">€36</span>
                         </div>
                     </div>
                 </div>
                 <div class="space-y-2 px-1">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">300gsm · Boxy · Absolute black</span>
-                        <span class="font-inter text-[9px] tracking-[0.2em] text-off-white/15">M / L / XL</span>
+                        <span class="font-inter text-[10px] tracking-[0.25em] uppercase text-off-white/25">Embroidered symbol · Absolute black</span>
+                        <span class="font-inter text-[9px] tracking-[0.2em] text-off-white/15">One size</span>
                     </div>
                     <div class="flex justify-between items-center py-2">
-                        <span class="font-inter text-[9px] tracking-[0.25em] uppercase text-off-white/15">November 2026 · 50 units</span>
+                        <span class="font-inter text-[9px] tracking-[0.25em] uppercase text-off-white/15">Limited · No restock</span>
                     </div>
                     <button onclick="event.stopPropagation();checkout()" class="w-full border border-off-white/10 text-off-white/40 font-oswald text-[10px] tracking-[0.4em] uppercase py-3 hover:border-off-white/30 hover:text-off-white/70 transition-all duration-500">Access</button>
                 </div>

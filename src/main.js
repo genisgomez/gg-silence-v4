@@ -387,3 +387,38 @@ if(drRevEl){
     .to('#drBtn',  {opacity:1,duration:.9,ease:'power2.out'},4.7);
 }
 })();
+
+// ===== MOBILE GALLERY TOUCH — Insignia T-Shirt =====
+(function(){
+  if(innerWidth>=769)return; // desktop uses CSS hover
+  const cards=document.querySelectorAll('.group.hv');
+  cards.forEach(card=>{
+    const imgs=card.querySelectorAll('.gallery-img');
+    if(imgs.length<2)return;
+    const dots=card.querySelectorAll('[class*="dot-"]');
+    if(!dots.length)return;
+    let current=0;
+    let startX=0;
+    card.addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});
+    card.addEventListener('touchend',e=>{
+      const dx=e.changedTouches[0].clientX-startX;
+      if(Math.abs(dx)<40)return;
+      current=dx<0?1:0;
+      imgs[0].style.opacity=current===0?'0.88':'0';
+      imgs[1].style.opacity=current===1?'0.88':'0';
+      dots[0].className=current===0?'w-1.5 h-1.5 rounded-full dot-active':'w-1.5 h-1.5 rounded-full dot-inactive';
+      dots[1].className=current===1?'w-1.5 h-1.5 rounded-full dot-active':'w-1.5 h-1.5 rounded-full dot-inactive';
+    },{passive:true});
+    // Tap dots to switch
+    dots.forEach((dot,i)=>{
+      dot.addEventListener('click',e=>{
+        e.stopPropagation();
+        current=i;
+        imgs[0].style.opacity=current===0?'0.88':'0';
+        imgs[1].style.opacity=current===1?'0.88':'0';
+        dots[0].className=current===0?'w-1.5 h-1.5 rounded-full dot-active':'w-1.5 h-1.5 rounded-full dot-inactive';
+        dots[1].className=current===1?'w-1.5 h-1.5 rounded-full dot-active':'w-1.5 h-1.5 rounded-full dot-inactive';
+      });
+    });
+  });
+})();

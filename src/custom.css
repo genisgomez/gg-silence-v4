@@ -152,3 +152,12 @@ button:focus-visible,input:focus-visible{outline:1px solid rgba(154,127,74,0.6);
 
 /* ===== FASE 7: Newsletter Focus ===== */
 #eIn:focus{border-color:#9a7f4a !important;box-shadow:0 0 0 1px rgba(154,127,74,0.2)}
+
+/* ===== GALLERY HOVER — Desktop ===== */
+@media(min-width:769px){
+    .group:hover .gallery-img:nth-child(1){opacity:0}
+    .group:hover .gallery-img:nth-child(2){opacity:0.88}
+}
+/* Gallery dots */
+.dot-active{background:rgba(154,127,74,0.6) !important}
+.dot-inactive{background:rgba(234,234,234,0.2) !important}
