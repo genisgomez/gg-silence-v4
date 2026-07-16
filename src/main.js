@@ -52,7 +52,7 @@ document.getElementById('eIn').addEventListener('keypress',e=>{if(e.key==='Enter
 let _wlPrev=null;
 function openWaitlist(product){
     _wlPrev=document.activeElement;
-    document.getElementById('wlProduct').textContent=product+' · Noviembre 2026';
+    document.getElementById('wlProduct').textContent=product+' · November 2026';
     document.getElementById('wlProductInput').value=product;
     document.getElementById('wlForm').style.display='';
     document.getElementById('wlSuccess').style.display='none';
