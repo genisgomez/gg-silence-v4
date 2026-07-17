@@ -3,7 +3,7 @@
 /* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
 ::selection{background:rgba(100,160,255,0.2);color:#EAEAEA}
-body{background:#050505;color:#EAEAEA;font-family:'Inter',sans-serif;cursor:none;overflow-x:hidden}
+body{background:#050505;color:#EAEAEA;font-family:'Inter',sans-serif;overflow-x:hidden;cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cline x1='12' y1='0' x2='12' y2='24' stroke='%239a7f4a' stroke-width='1'/%3E%3Cline x1='0' y1='12' x2='24' y2='12' stroke='%239a7f4a' stroke-width='1'/%3E%3Ccircle cx='12' cy='12' r='3' fill='none' stroke='%239a7f4a' stroke-width='0.8'/%3E%3C/svg%3E") 12 12, crosshair}
 
 /* PRELOADER */
 #preloader{position:fixed;inset:0;z-index:10000;background:#050505;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
@@ -17,11 +17,9 @@ body{background:#050505;color:#EAEAEA;font-family:'Inter',sans-serif;cursor:none
 #dustCanvas{position:fixed;inset:0;z-index:53;pointer-events:none;opacity:0}
 
 /* CURSOR */
-a,button,input{cursor:none}
-.cur-dot{width:5px;height:5px;background:#EAEAEA;border-radius:50%;position:fixed;pointer-events:none;z-index:99999;mix-blend-mode:difference}
-.cur-ring{width:36px;height:36px;border:1px solid rgba(234,234,234,0.35);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;mix-blend-mode:difference;transition:width .3s,height .3s,border-color .3s}
-.cur-ring.hov{width:60px;height:60px;border-color:rgba(234,234,234,0.7)}
-@media(max-width:768px){body,a,button,input{cursor:auto}.cur-dot,.cur-ring{display:none}}
+a,button,input{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cline x1='12' y1='0' x2='12' y2='24' stroke='%239a7f4a' stroke-width='1'/%3E%3Cline x1='0' y1='12' x2='24' y2='12' stroke='%239a7f4a' stroke-width='1'/%3E%3Ccircle cx='12' cy='12' r='3' fill='none' stroke='%239a7f4a' stroke-width='0.8'/%3E%3C/svg%3E") 12 12, pointer}
+.cur-dot,.cur-ring{display:none !important}
+@media(max-width:768px){body,a,button,input{cursor:auto}}
 
 /* HERO */
 .h-overlay{background:linear-gradient(180deg,rgba(5,5,5,0.5) 0%,rgba(5,5,5,0.12) 30%,rgba(5,5,5,0.1) 50%,rgba(5,5,5,0.5) 75%,rgba(5,5,5,0.98) 100%)}
