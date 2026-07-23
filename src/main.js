@@ -49,18 +49,34 @@ function handleSub(){const i=document.getElementById('eIn');if(emailRx.test(i.va
 document.getElementById('eIn').addEventListener('keypress',e=>{if(e.key==='Enter')handleSub()});
 
 // ===== WAITLIST MODAL =====
+// Config por producto: sizes=null → no se pide talla (se envía el valor de "size" directamente)
+const WL_PRODUCTS={
+    'Insignia Hoodie':{sizes:['M','L'],chips:'25 UNITS · NUMBERED 01–25 · WAITLIST ONLY'},
+    'Insignia T-Shirt':{sizes:['M','L'],chips:'25 M · 25 L · NO RESTOCK'},
+    'Insignia Cap':{sizes:null,size:'One size',chips:'ONE SIZE · THE SIGNAL'},
+    'Drop 001':{sizes:['M','L'],chips:'75 PIECES · NO RESTOCK'}
+};
 let _wlPrev=null;
 function openWaitlist(product){
     _wlPrev=document.activeElement;
+    const cfg=WL_PRODUCTS[product]||{sizes:['M','L'],chips:'NOVEMBER 2026'};
     document.getElementById('wlProduct').textContent=product+' · November 2026';
     document.getElementById('wlProductInput').value=product;
     document.getElementById('wlForm').style.display='';
     document.getElementById('wlSuccess').style.display='none';
-    document.getElementById('wlSize').value='';
-    ['M','L'].forEach(t=>{
-        const b=document.getElementById('sz-'+t);
-        if(b){b.setAttribute('aria-pressed','false');b.style.borderColor='rgba(234,234,234,0.07)';b.style.color='rgba(234,234,234,0.3)';b.style.background='transparent';}
-    });
+    document.getElementById('wlChips').innerHTML='<span style="font-family:\'Oswald\',sans-serif;font-size:9px;letter-spacing:0.4em;color:rgba(154,127,74,0.45);text-transform:uppercase">'+cfg.chips+'</span>';
+    const fs=document.getElementById('wlSizeSet');
+    if(cfg.sizes){
+        fs.style.display='';
+        document.getElementById('wlSize').value='';
+        ['M','L'].forEach(t=>{
+            const b=document.getElementById('sz-'+t);
+            if(b){b.setAttribute('aria-pressed','false');b.style.borderColor='rgba(234,234,234,0.07)';b.style.color='rgba(234,234,234,0.3)';b.style.background='transparent';}
+        });
+    }else{
+        fs.style.display='none';
+        document.getElementById('wlSize').value=cfg.size||'One size';
+    }
     const m=document.getElementById('waitlistModal');
     m.style.display='flex';
     document.body.style.overflow='hidden';
