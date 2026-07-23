@@ -74,6 +74,14 @@ img{opacity:0;transition:opacity 1s}img.ld{opacity:1}
 #jNav{transition:opacity .9s ease}
 .ji{opacity:0}
 
+/* JOURNEY — móvil: recorrido acortado ~54% (desktop intacto, 100vh inmersivo) */
+@media(max-width:768px){
+  .city-wrap{height:52vh;min-height:380px}
+  .city-body{padding-top:44px;padding-bottom:44px}
+  #journey .j-intro{padding-top:88px;padding-bottom:56px}
+  #drReveal{min-height:75vh !important}
+}
+
 /* CITY PHOTO POSITIONS — mobile */
 .city-panel[data-idx="0"] .city-photo{object-position:50% 75%}
 .city-panel[data-idx="1"] .city-photo{object-position:42% 72%}

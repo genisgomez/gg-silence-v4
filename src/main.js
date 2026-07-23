@@ -378,9 +378,11 @@ function onScroll(){
 window.addEventListener('scroll',onScroll,{passive:true});
 onScroll();
 
+// Móvil: reveals más rápidos y tempranos (recorrido acortado en CSS)
+const jMob=innerWidth<768;
 document.querySelectorAll('.city-body').forEach(el=>{
-  gsap.fromTo(el,{opacity:0,y:30},{opacity:1,y:0,duration:1.1,ease:'power2.out',
-    scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}});
+  gsap.fromTo(el,{opacity:0,y:jMob?20:30},{opacity:1,y:0,duration:jMob?0.75:1.1,ease:'power2.out',
+    scrollTrigger:{trigger:el,start:jMob?'top 92%':'top 88%',toggleActions:'play none none none'}});
 });
 
 document.querySelectorAll('.ji').forEach((el,i)=>{
@@ -388,8 +390,10 @@ document.querySelectorAll('.ji').forEach((el,i)=>{
     scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}});
 });
 
+// Parallax proporcional a la altura del wrap (52vh en móvil, 100vh en desktop)
+const jPar=jMob?16:28;
 document.querySelectorAll('.city-photo').forEach(img=>{
-  gsap.fromTo(img,{scale:1.1,y:-28},{scale:1.1,y:28,ease:'none',
+  gsap.fromTo(img,{scale:1.1,y:-jPar},{scale:1.1,y:jPar,ease:'none',
     scrollTrigger:{trigger:img.closest('.city-wrap'),start:'top bottom',end:'bottom top',scrub:1.2}});
 });
 
@@ -402,6 +406,27 @@ if(drRevEl){
     .to('#drCount',{opacity:1,duration:1,ease:'power2.out'},4.1)
     .to('#drBtn',  {opacity:1,duration:.9,ease:'power2.out'},4.7);
 }
+})();
+
+// ===== LAZY BACKGROUND VIDEOS (luxur-bg) =====
+// preload="none" + IntersectionObserver: el vídeo (versión móvil ligera si aplica)
+// solo se descarga cuando su sección está a <600px del viewport. Hasta entonces, poster.
+(function(){
+  const vids=document.querySelectorAll('video[data-src]');
+  if(!vids.length)return;
+  const mob=innerWidth<768;
+  const load=v=>{
+    if(v.dataset.loaded)return;
+    v.dataset.loaded='1';
+    v.src=(mob&&v.dataset.srcMobile)?v.dataset.srcMobile:v.dataset.src;
+    v.autoplay=true;
+    v.play().catch(()=>{});
+  };
+  if(!('IntersectionObserver' in window)){vids.forEach(load);return}
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){load(e.target);io.unobserve(e.target)}});
+  },{rootMargin:'600px 0px'});
+  vids.forEach(v=>io.observe(v));
 })();
 
 // ===== MOBILE GALLERY TOUCH — Insignia T-Shirt =====
