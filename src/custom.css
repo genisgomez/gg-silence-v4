@@ -74,10 +74,12 @@ img{opacity:0;transition:opacity 1s}img.ld{opacity:1}
 #jNav{transition:opacity .9s ease}
 .ji{opacity:0}
 
-/* JOURNEY — móvil: recorrido acortado ~54% (desktop intacto, 100vh inmersivo) */
+/* JOURNEY — móvil: overlay cinematográfico (~55% menos scroll; desktop intacto, 100vh inmersivo)
+   Cada ciudad = una pantalla: el texto se ancla sobre la foto con gradiente propio de legibilidad */
 @media(max-width:768px){
-  .city-wrap{height:52vh;min-height:380px}
-  .city-body{padding-top:44px;padding-bottom:44px}
+  .city-panel{position:relative}
+  .city-wrap{height:58vh;min-height:480px}
+  .city-body{position:absolute;bottom:0;left:0;right:0;z-index:2;padding-top:56px;padding-bottom:32px;background:linear-gradient(to top,rgba(5,5,5,0.88) 0%,rgba(5,5,5,0.5) 55%,transparent 100%)}
   #journey .j-intro{padding-top:88px;padding-bottom:56px}
   #drReveal{min-height:75vh !important}
 }
